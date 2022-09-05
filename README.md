@@ -1,1 +1,2 @@
-# Graphics
+# Computer Graphics (WebGL) Weekly projects
+
