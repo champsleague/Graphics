@@ -25,15 +25,14 @@ window.onload = function init()
     ];
 
     //configure WebGL
-    
-
     gl.viewport( 0, 0, canvas.width, canvas.height );
     gl.clearColor( 0.0, 0.0, 0.0, 1.0 );
 
     //  Load shaders and initialize attribute buffers
-
     var program = initShaders( gl, "vertex-shader", "fragment-shader" );
     gl.useProgram( program );
+
+
 
     // Load the data into the GPU
 
@@ -51,7 +50,7 @@ window.onload = function init()
 };
 
 
-function render() {
+    //render
     gl.clear( gl.COLOR_BUFFER_BIT );
-    gl.drawArrays( gl.TRIANGLES, 0, 6);
-}
+    gl.drawArrays( gl.TRIANGLES, 0, 3);
+
