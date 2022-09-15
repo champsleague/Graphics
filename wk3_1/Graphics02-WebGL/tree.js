@@ -13,17 +13,17 @@ window.onload = function init()
     //var vertices = new Float32Array([vec2(-1, -1), vec2(0, 1), vec2(1, -1)]);
 	  // var vertices = [ vec2(-1,-1), vec2(0,1), vec2(1,-1)];
     //  Configure WebGL
-    var vertices = new Float32Array([-1,0.5,0,0.5,-0.5,1,
-                                     -1,0,0,0,-0.5,0.5,
-                                     -1,-0.5,0,-0.5,-0.5,0,
+    var vertices = new Float32Array([-0.55,0.5,   0.45,0.5,   -0.05,1,
+                                     -0.55,0,     0.45,0,     -0.05,0.5,
+                                     -0.55,-0.5,  0.45,-0.5,  -0.05,0,
                                     
                                     ]);
 
     var sqaurevertices = [
-        vec2( -0.68, -0.5 ), // v0
-        vec2( -0.68, -1 ), // v1
-        vec2( -0.35, -0.5 ), // v2
-        vec2( -0.35, -1) // v3
+        vec2( -0.22, -0.5 ), // v0
+        vec2( -0.22, -1 ), // v1
+        vec2( 0.1, -0.5 ), // v2
+        vec2( 0.1, -1) // v3
                     ];
     
     
@@ -40,7 +40,6 @@ window.onload = function init()
     gl.bindBuffer( gl.ARRAY_BUFFER, bufferId );
     gl.bufferData( gl.ARRAY_BUFFER,flatten(vertices), gl.STATIC_DRAW );
 
-
     // Associate vertex data buffer with shader variables
     var vPosition = gl.getAttribLocation( program, "vPosition" );
     gl.vertexAttribPointer( vPosition, 2, gl.FLOAT, false, 0, 0 );
@@ -56,9 +55,13 @@ window.onload = function init()
     var squareBufferId = gl.createBuffer();
     gl.bindBuffer( gl.ARRAY_BUFFER, squareBufferId );
     gl.bufferData( gl.ARRAY_BUFFER,flatten(sqaurevertices), gl.STATIC_DRAW );
+
+    // Associate vertex data buffer with shader variables
+    var vPosition = gl.getAttribLocation( program, "vPosition" );
     gl.vertexAttribPointer( vPosition, 2, gl.FLOAT, false, 0, 0 );
     gl.enableVertexAttribArray( vPosition );
 
+    var color = gl.getUniformLocation(program, "color");
 	gl.uniform4fv(color,[0.5,0.25,0.0,1.0]);
     gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
 
