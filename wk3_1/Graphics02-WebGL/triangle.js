@@ -18,6 +18,7 @@ window.onload = function init()
                                      -1,-0.5,0,-0.5,-0.5,0
     ]);
     
+    
     // Configure WebGL
     gl.viewport( 0, 0, canvas.width, canvas.height );
     gl.clearColor( 0.0, 0.0, 0.0, 1.0 );
