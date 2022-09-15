@@ -9,7 +9,6 @@ window.onload = function init()
     gl = WebGLUtils.setupWebGL( canvas );
     if ( !gl ) { alert( "WebGL isn't available" ); }
 
-
     //vertex position
     var vertices = [
         vec2(0,0.5),  //v0
