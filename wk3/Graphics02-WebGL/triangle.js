@@ -41,11 +41,20 @@ window.onload = function init()
     gl.vertexAttribPointer( vPosition, 2, gl.FLOAT, false, 0, 0 );
     gl.enableVertexAttribArray( vPosition );
 
-    render();
+
+    var vertexColorBufferId = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, vertexColorBufferId);
+    gl.bufferData(gl.ARRAY_BUFFER, flatten(colors),gl.STATIC_DRAW);
+
+    var vColor = gl.getAttribLocation(program,"vcolor");
+    gl.vertexAttribPointer(vColor,4,gl.FLOAT,false,0,0);
+    gl.enableVertexAttribArray(vColor)
+
+     //render
+     gl.clear( gl.COLOR_BUFFER_BIT );
+     gl.drawArrays( gl.TRIANGLES, 0, 3);
 };
 
 
-    //render
-    gl.clear( gl.COLOR_BUFFER_BIT );
-    gl.drawArrays( gl.TRIANGLES, 0, 3);
+   
 
