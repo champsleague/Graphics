@@ -10,7 +10,7 @@ window.onload = function init()
     if ( !gl ) { alert( "WebGL isn't available" ); }
 
 
-    //vertext position
+    //vertex position
     var vertices = [
         vec2(0,0.5),  //v0
         vec2(-0.5,-0.5),  //v1
@@ -19,9 +19,9 @@ window.onload = function init()
 
     //vertex color (R,G,B,A)
     var colors = [
-        vec4(255.0,0.0,0.0,1.0), //v0
-        vec4(0.0,255.0,0.0,1.0), //v1
-        vec4(0.0,0.0,255.0,1.0) //v2
+        vec4(1.0,0.0,0.0,1.0), //v0
+        vec4(0.0,1.0,0.0,1.0), //v1
+        vec4(0.0,0.0,1.0,1.0) //v2
     ];
 
     //configure WebGL
@@ -46,7 +46,7 @@ window.onload = function init()
     gl.bindBuffer(gl.ARRAY_BUFFER, vertexColorBufferId);
     gl.bufferData(gl.ARRAY_BUFFER, flatten(colors),gl.STATIC_DRAW);
 
-    var vColor = gl.getAttribLocation(program,"vcolor");
+    var vColor = gl.getAttribLocation(program,"vColor");
     gl.vertexAttribPointer(vColor,4,gl.FLOAT,false,0,0);
     gl.enableVertexAttribArray(vColor)
 

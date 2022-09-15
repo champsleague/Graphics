@@ -6,11 +6,11 @@ attribute vec4 vPosition;
 attribute vec4 vColor;
 varying vec4 fColor;
 
-void
+void 
 main()
 {
     fColor = vColor;
-    gl_position = vPosition
+    gl_Position = vPosition;
 }
 </script>
 
@@ -18,7 +18,7 @@ main()
 precision mediump float;
 varying vec4 fColor;
 
-void
+void 
 main()
 {
     gl_FragColor = fColor;
