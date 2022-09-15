@@ -15,9 +15,20 @@ window.onload = function init()
     //  Configure WebGL
     var vertices = new Float32Array([-1,0.5,0,0.5,-0.5,1,
                                      -1,0,0,0,-0.5,0.5,
-                                     -1,-0.5,0,-0.5,-0.5,0
-    ]);
+                                     -1,-0.5,0,-0.5,-0.5,0,                                   
+                                    ]);
+
+    var vertices = [
+    vec2( -0.7, -0.5 ), // v0
+    vec2( -0.7, -1 ), // v1
+    vec2( -0.35, -0.5 ), // v2
+    vec2( -0.35, -1) // v3
+                    ];
     
+
+    //in application
+    // colorLoc = gl.getUniformLocation(program,"color");
+    // gl.uniform4fv(colorLoc,[1.0,0.0,0.0,1.0]);
     
     // Configure WebGL
     gl.viewport( 0, 0, canvas.width, canvas.height );
@@ -30,12 +41,15 @@ window.onload = function init()
     // Load the data into the GPU
     var bufferId = gl.createBuffer();
     gl.bindBuffer( gl.ARRAY_BUFFER, bufferId );
-    gl.bufferData( gl.ARRAY_BUFFER,vertices, gl.STATIC_DRAW );
+    gl.bufferData( gl.ARRAY_BUFFER,flatten(vertices), gl.STATIC_DRAW );
 
     // Associate vertex data buffer with shader variables
     var vPosition = gl.getAttribLocation( program, "vPosition" );
     gl.vertexAttribPointer( vPosition, 2, gl.FLOAT, false, 0, 0 );
     gl.enableVertexAttribArray( vPosition );
+
+    var transformation = gl.getUniformLocation(program, "transformation");
+	gl.uniform4fv(transformation,[0.5,0.0,0.0,0.0]);
 
     render();
 };
@@ -44,5 +58,5 @@ window.onload = function init()
 function render() {
     gl.clear( gl.COLOR_BUFFER_BIT );
     gl.drawArrays( gl.TRIANGLES, 0, 9);
-    // gl.drawArrays( gl.TRIANGLE_STRIP, 0, 4 ); // 0, 1, 2, 2, 1, 3
+    gl.drawArrays( gl.TRIANGLE_STRIP, 0, 4 ); 
 }
