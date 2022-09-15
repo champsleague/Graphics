@@ -19,9 +19,9 @@ window.onload = function init()
 
     //vertex color (R,G,B,A)
     var colors = [
-        vec4(1.0,0.0,0.0,1.0), //v0
-        vec4(0.0,1.0,0.0,1.0), //v1
-        vec4(0.0,0.0,1.0,1.0) //v2
+        vec4(255.0,0.0,0.0,1.0), //v0
+        vec4(0.0,255.0,0.0,1.0), //v1
+        vec4(0.0,0.0,255.0,1.0) //v2
     ];
 
     //configure WebGL
