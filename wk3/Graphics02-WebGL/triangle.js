@@ -10,14 +10,22 @@ window.onload = function init()
     if ( !gl ) { alert( "WebGL isn't available" ); }
 
 
-    //var vertices = new Float32Array([vec2(-1, -1), vec2(0, 1), vec2(1, -1)]);
-	  // var vertices = [ vec2(-1,-1), vec2(0,1), vec2(1,-1)];
-    //  Configure WebGL
+    //vertext position
     var vertices = [
         vec2(0,0.5),  //v0
         vec2(-0.5,-0.5),  //v1
         vec2(0.5,-0.5),  //v2
     ];
+
+    //vertex color (R,G,B,A)
+    var colors = [
+        vec4(1.0,0.0,0.0,1.0), //v0
+        vec4(0.0,1.0,0.0,1.0), //v1
+        vec4(0.0,0.0,1.0,1.0) //v2
+    ];
+
+    //configure WebGL
+    
 
     gl.viewport( 0, 0, canvas.width, canvas.height );
     gl.clearColor( 0.0, 0.0, 0.0, 1.0 );
