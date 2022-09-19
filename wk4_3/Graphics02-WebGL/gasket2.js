@@ -3,8 +3,9 @@ var canvas;
 var gl;
 
 var points = [];
+var colors = [];
 
-var NumTimesToSubdivide = 5;
+var NumTimesToSubdivide = 2;
 
 window.onload = function init()
 {
@@ -20,22 +21,24 @@ window.onload = function init()
     // First, initialize the corners of our gasket with three points.
 
     var vertices = [
-        vec2( -1, -1 ),
-        vec2(  0,  1 ),
-        vec2(  1, -1 )
+        vec3( 0.000, 0.0000, -1.0000 ),
+        vec3( 0.000, 0.9428, 0.3333 ),
+        vec3(-0.8165, -0.4714, 0.3333 ),
+        vec3( 0.8165, -0.4714, 0.3333 )
     ];
 
-    divideTriangle( vertices[0], vertices[1], vertices[2],
+    divideTetra( vertices[0], vertices[1], vertices[2],vertices[3],
                     NumTimesToSubdivide);
 
-    //
+
     //  Configure WebGL
-    //
     gl.viewport( 0, 0, canvas.width, canvas.height );
     gl.clearColor( 1.0, 1.0, 1.0, 1.0 );
 
-    //  Load shaders and initialize attribute buffers
+    //enable hidden-surface removal
+    gl.enable(gl.DEPTH_TEST);
 
+    //  Load shaders and initialize attribute buffers
     var program = initShaders( gl, "vertex-shader", "fragment-shader" );
     gl.useProgram( program );
 
