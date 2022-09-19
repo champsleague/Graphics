@@ -21,10 +21,10 @@ window.onload = function init()
     // First, initialize the corners of our gasket with three points.
 
     var vertices = [
-        vec3( 0.000, 0.0000, -1.0000 ),
-        vec3( 0.000, 0.9428, 0.3333 ),
+        vec3(0.0000, 0.0000, -1.0000 ),
+        vec3(0.0000, 0.9428, 0.3333 ),
         vec3(-0.8165, -0.4714, 0.3333 ),
-        vec3( 0.8165, -0.4714, 0.3333 )
+        vec3(0.8165, -0.4714, 0.3333 )
     ];
 
     divideTetra( vertices[0], vertices[1], vertices[2],vertices[3],
@@ -105,7 +105,6 @@ function divideTetra( a, b, c, d, count )
 
         --count;
 
-        // three new triangles
 
         divideTetra( a, ab, ac, ad, count );
         divideTetra( ab, b, bc, bd, count );
