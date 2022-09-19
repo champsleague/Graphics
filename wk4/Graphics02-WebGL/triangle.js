@@ -13,7 +13,7 @@ window.onload = function init()
     //var vertices = new Float32Array([vec2(-1, -1), vec2(0, 1), vec2(1, -1)]);
 	  // var vertices = [ vec2(-1,-1), vec2(0,1), vec2(1,-1)];
     //  Configure WebGL
-    var vertices = new Float32Array([-0.5, 1, -1, -1, 0, -1,0,-1,1,-1,0.5,1]);
+    var vertices = new Float32Array([-0.5, 1, -1, -1, 0, -1]);
 
     gl.viewport( 0, 0, canvas.width, canvas.height );
     gl.clearColor( 0.0, 0.0, 0.0, 1.0 );
