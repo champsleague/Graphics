@@ -69,7 +69,7 @@ function triangle( a, b, c, color )
         vec3(1.0,0.0,0.0),
         vec3(0.0,1.0,0.0),
         vec3(0.0,0.0,1.0),
-        vec3(0.0,0.0,0.0),
+        vec3(0.0,0.0,0.0)
     ];
     colors.push(baseColors[color])
     points.push(a)
@@ -92,7 +92,7 @@ function divideTetra( a, b, c, d, count )
     // check for end of recursion
 
     if ( count === 0 ) {
-        triangle( a, b, c, d );
+        tetra( a, b, c, d );
     }
     else {
 
@@ -106,10 +106,10 @@ function divideTetra( a, b, c, d, count )
         --count;
 
 
-        divideTetra( a, ab, ac, ad, count );
-        divideTetra( ab, b, bc, bd, count );
-        divideTetra( ac, bc, c, cd, count );
-        divideTetra( ac, bd, cd, d, count );
+        divideTetra(  a, ab, ac, ad, count );
+        divideTetra( ab,  b, bc, bd, count );
+        divideTetra( ac, bc,  c, cd, count );
+        divideTetra( ad, bd, cd,  d, count );
     }
 }
 
