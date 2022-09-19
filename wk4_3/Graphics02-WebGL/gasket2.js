@@ -63,9 +63,14 @@ window.onload = function init()
     render();
 };
 
-function triangle( a, b, c )
+function triangle( a, b, c, color )
 {
-    points.push( a, b, c );
+    var baseColors = [
+        vec3(1.0,0.0,0.0),
+        vec3(0.0,1.0,0.0),
+        vec3(0.0,0.0,1.0),
+        vec3(0.0,0.0,0.0),
+    ];
 }
 
 function divideTriangle( a, b, c, count )
