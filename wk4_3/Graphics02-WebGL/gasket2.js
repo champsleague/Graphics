@@ -92,23 +92,25 @@ function divideTetra( a, b, c, d, count )
     // check for end of recursion
 
     if ( count === 0 ) {
-        triangle( a, b, c );
+        triangle( a, b, c, d );
     }
     else {
 
-        //bisect the sides
-
         var ab = mix( a, b, 0.5 );
         var ac = mix( a, c, 0.5 );
+        var ad = mix( a, d, 0.5 );
         var bc = mix( b, c, 0.5 );
+        var bd = mix( b, d, 0.5 );
+        var cd = mix( c, d, 0.5 );
 
         --count;
 
         // three new triangles
 
-        divideTriangle( a, ab, ac, count );
-        divideTriangle( c, ac, bc, count );
-        divideTriangle( b, bc, ab, count );
+        divideTetra( a, ab, ac, ad, count );
+        divideTetra( ab, b, bc, bd, count );
+        divideTetra( ac, bc, c, cd, count );
+        divideTetra( ac, bd, cd, d, count );
     }
 }
 
