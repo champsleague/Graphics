@@ -9,11 +9,15 @@ window.onload = function init()
     gl = WebGLUtils.setupWebGL( canvas );
     if ( !gl ) { alert( "WebGL isn't available" ); }
 
-    gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
-    gl.clearColor(0, 0, 0, 1);
-    var program = initShaders( gl, "vertex-shader", "fragment-shader" );
 
-    gl.useProgram(program);
+
+    gl.viewport( 0, 0, canvas.width, canvas.height );
+    gl.clearColor( 0.0, 0.0, 0.0, 1.0 );
+
+    //  Load shaders and initialize attribute buffers
+    var program = initShaders( gl, "vertex-shader", "fragment-shader" );
+    gl.useProgram( program );
+
 
  
     // var program = webglUtils.createProgramFromScripts(gl, ["2d-vertex-shader", "2d-fragment-shader"]);
@@ -30,8 +34,7 @@ window.onload = function init()
     var offset = 0;
    
 
-    
-    // 50개의 무작위 크기, 위치, 색을 가진 사각형을 그린다.
+    // draw 50 random rectangles 
     for(var ii = 0; ii < 50; ++ii) {
 
       var positionBuffer = gl.createBuffer();
@@ -47,8 +50,6 @@ window.onload = function init()
       gl.uniform2f(resolutionUniformLocation, gl.canvas.width, gl.canvas.height);
 
     
-      // gl.drawArrays(gl.TRIANGLES, 0, 6);
-
       // Draw the rectangle.
         var primitiveType = gl.TRIANGLES;
         var offset = 0;
@@ -58,9 +59,8 @@ window.onload = function init()
     }
 } 
 
-    // render();
  
-// 0 ~ range까지의 정수값을 무작위로 반환함 
+// return randomInt from 0 to range 
 function randomInt(range) {
     return Math.floor(Math.random() * range);
   }
@@ -83,7 +83,7 @@ function randomInt(range) {
 
   function render() {
     gl.clear( gl.COLOR_BUFFER_BIT );
-    gl.drawArrays( gl.TRIANGLES, 0, 6); // 0, 1, 2, 2, 1, 3
+    gl.drawArrays( gl.TRIANGLES, 0, 6);
     }
 
   
