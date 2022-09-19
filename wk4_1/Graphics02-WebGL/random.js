@@ -41,11 +41,9 @@ window.onload = function init()
 
       gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
       setRectangle(gl,randomInt(300),randomInt(300),randomInt(300), randomInt(300));
-      gl.vertexAttribPointer(
-        positionAttributeLocation,size, type, normalize, stride, offset);
+      gl.vertexAttribPointer(positionAttributeLocation,size, type, normalize, stride, offset);
       gl.enableVertexAttribArray(positionAttributeLocation);
 
-      
       gl.uniform4f(colorUniformLocation,Math.random(),Math.random(),Math.random(), 1);
       gl.uniform2f(resolutionUniformLocation, gl.canvas.width, gl.canvas.height);
 
