@@ -2,33 +2,40 @@
 <html>
 <head>
 <script id="vertex-shader" type="x-shader/x-vertex">
-attribute vec4 vPosition;
-attribute vec4 vColor;
-varying vec4 fColor;
+attribute vec2 a_position;
+uniform vec2 u_resolution;
 
 void
 main()
 {
-    fColor = vColor;
-    gl_Position = vPosition;
+  // convert the rectangle from pixels to 0.0 to 1.0
+  vec2 zeroToOne = a_position / u_resolution;
+  
+  // convert from 0->1 to 0->2
+  vec2 zeroToTwo = zeroToOne * 2.0;
+  
+  // convert from 0->2 to -1->+1 (clipspace)
+  vec2 clipSpace = zeroToTwo - 1.0;
+ 
+  gl_Position = vec4(clipSpace * vec2(1, -1), 0, 1);
 }
 </script>
 
 <script id="fragment-shader" type="x-shader/x-fragment">
 precision mediump float;
-varying vec4 fColor;
+uniform vec4 u_color;
 
 void
 main()
 {
-    gl_FragColor = fColor;
+    gl_FragColor = u_color;
 }
 </script>
 
 <script type="text/javascript" src="../Common/webgl-utils.js"></script>
 <script type="text/javascript" src="../Common/initShaders.js"></script>
 <script type="text/javascript" src="../Common/MV.js"></script>
-<script type="text/javascript" src="square.js"></script>
+<script type="text/javascript" src="copy.js"></script>
 </head>
 
 <body>
