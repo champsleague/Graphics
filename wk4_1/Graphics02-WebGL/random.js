@@ -37,7 +37,7 @@ window.onload = function init()
     gl.vertexAttribPointer(positionAttributeLocation,size, type, normalize, stride, offset);
     gl.enableVertexAttribArray(positionAttributeLocation);
 
-    
+
     // draw 50 random rectangles 
     for(var ii = 0; ii < 50; ++ii) {
 
@@ -79,9 +79,9 @@ function randomInt(range) {
   }
 
 
-  function render() {
-    gl.clear( gl.COLOR_BUFFER_BIT );
-    gl.drawArrays( gl.TRIANGLES, 0, 6);
-    }
+  // function render() {
+  //   gl.clear( gl.COLOR_BUFFER_BIT );
+  //   gl.drawArrays( gl.TRIANGLES, 0, 6);
+  //   }
 
   
