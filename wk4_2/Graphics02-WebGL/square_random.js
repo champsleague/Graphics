@@ -20,9 +20,9 @@ window.onload = function init()
     var program = initShaders( gl, "vertex-shader", "fragment-shader" );
     gl.useProgram( program );
 
-	// we added a uniform called vResolution. 
-	var vResolution = gl.getUniformLocation(program, "uResolution");
-	var fColor = gl.getUniformLocation(program, "uColor");
+    // we added a uniform called vResolution. 
+    var vResolution = gl.getUniformLocation(program, "uResolution");
+    var fColor = gl.getUniformLocation(program, "uColor");
     
     // Load the data into the GPU
     var bufferId = gl.createBuffer();
@@ -30,12 +30,12 @@ window.onload = function init()
 
     // Associate out shader variables with our data buffer
     var vPosition = gl.getAttribLocation( program, "vPosition" );
-	// Tell the attribute how to get data out of positionBuffer (ARRAY_BUFFER)
-	var size = 2;          // 2 components per iteration
-	var type = gl.FLOAT;   // the data is 32bit floats
-	var normalize = false; // don't normalize the data
-	var stride = 0;        // 0 = move forward size * sizeof(type) each iteration to get the next position
-	var offset = 0;        // start at the beginning of the buffer
+    // Tell the attribute how to get data out of positionBuffer (ARRAY_BUFFER)
+    var size = 2;          // 2 components per iteration
+    var type = gl.FLOAT;   // the data is 32bit floats
+    var normalize = false; // don't normalize the data
+    var stride = 0;        // 0 = move forward size * sizeof(type) each iteration to get the next position
+    var offset = 0;        // start at the beginning of the buffer
     gl.vertexAttribPointer( vPosition, size, type, normalize, stride, offset);
     gl.enableVertexAttribArray( vPosition );
 
