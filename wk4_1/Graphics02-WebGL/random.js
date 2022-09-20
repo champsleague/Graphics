@@ -18,8 +18,10 @@ window.onload = function init()
     var program = initShaders( gl, "vertex-shader", "fragment-shader" );
     gl.useProgram( program );
 
-
- 
+    // Load the data into the GPU
+    var bufferId = gl.createBuffer();
+    gl.bindBuffer( gl.ARRAY_BUFFER, bufferId );
+    
     // var program = webglUtils.createProgramFromScripts(gl, ["2d-vertex-shader", "2d-fragment-shader"]);
 
     var positionAttributeLocation = gl.getAttribLocation(program, "a_position");
@@ -37,9 +39,7 @@ window.onload = function init()
     // draw 50 random rectangles 
     for(var ii = 0; ii < 50; ++ii) {
 
-      var positionBuffer = gl.createBuffer();
-      gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-      
+
       setRectangle(gl,randomInt(300),randomInt(300),randomInt(300), randomInt(300));
       gl.vertexAttribPointer(positionAttributeLocation,size, type, normalize, stride, offset);
       gl.enableVertexAttribArray(positionAttributeLocation);
