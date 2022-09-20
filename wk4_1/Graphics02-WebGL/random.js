@@ -22,27 +22,27 @@ window.onload = function init()
     var bufferId = gl.createBuffer();
     gl.bindBuffer( gl.ARRAY_BUFFER, bufferId );
     
-    // var program = webglUtils.createProgramFromScripts(gl, ["2d-vertex-shader", "2d-fragment-shader"]);
 
     var positionAttributeLocation = gl.getAttribLocation(program, "a_position");
     var resolutionUniformLocation = gl.getUniformLocation(program, "u_resolution");
     var colorUniformLocation = gl.getUniformLocation(program, "u_color");
 
-      
+    
     var size = 2;           
     var type = gl.FLOAT;  
     var normalize = false;
     var stride = 0; 
     var offset = 0;
    
+    gl.vertexAttribPointer(positionAttributeLocation,size, type, normalize, stride, offset);
+    gl.enableVertexAttribArray(positionAttributeLocation);
 
+    
     // draw 50 random rectangles 
     for(var ii = 0; ii < 50; ++ii) {
 
 
       setRectangle(gl,randomInt(300),randomInt(300),randomInt(300), randomInt(300));
-      gl.vertexAttribPointer(positionAttributeLocation,size, type, normalize, stride, offset);
-      gl.enableVertexAttribArray(positionAttributeLocation);
 
       gl.uniform4f(colorUniformLocation,Math.random(),Math.random(),Math.random(), 1);
       gl.uniform2f(resolutionUniformLocation, gl.canvas.width, gl.canvas.height);
