@@ -38,8 +38,8 @@ window.onload = function init()
     for(var ii = 0; ii < 50; ++ii) {
 
       var positionBuffer = gl.createBuffer();
-
       gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+      
       setRectangle(gl,randomInt(300),randomInt(300),randomInt(300), randomInt(300));
       gl.vertexAttribPointer(positionAttributeLocation,size, type, normalize, stride, offset);
       gl.enableVertexAttribArray(positionAttributeLocation);
