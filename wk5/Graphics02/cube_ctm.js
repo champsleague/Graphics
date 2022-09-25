@@ -144,6 +144,6 @@ function render()
 
     gl.drawArrays( gl.TRIANGLES, 0, NumVertices );
 
-    //requestAnimFrame( render );
+    requestAnimFrame( render );
 }
 
