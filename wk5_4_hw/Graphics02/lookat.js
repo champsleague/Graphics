@@ -2,7 +2,7 @@
 var canvas;
 var gl;
 
-var NumVertices  = 36;
+var numVertices  = 36;
 
 var pointsArray = [];
 var colorsArray = [];
@@ -16,6 +16,26 @@ var vertices = [
     vec4( -0.5,  0.5, -0.5, 1.0 ), // 5
     vec4(  0.5,  0.5, -0.5, 1.0 ), // 6
     vec4(  0.5, -0.5, -0.5, 1.0 ),  // 7
+
+    // bottom
+    vec4( -0.5, -0.5-1.0,  0.5, 1.0 ), // 0
+    vec4( -0.5,  0.5-1.0,  0.5, 1.0 ), // 1
+    vec4(  0.5,  0.5-1.0,  0.5, 1.0 ), // 2
+    vec4(  0.5, -0.5-1.0,  0.5, 1.0 ), // 3
+    vec4( -0.5, -0.5-1.0, -0.5, 1.0 ), // 4 
+    vec4( -0.5,  0.5-1.0, -0.5, 1.0 ), // 5
+    vec4(  0.5,  0.5-1.0, -0.5, 1.0 ), // 6
+    vec4(  0.5, -0.5-1.0, -0.5, 1.0 ),  // 7
+
+    // right
+    vec4( -0.5+1.0, -0.5,  0.5, 1.0 ), // 0
+    vec4( -0.5+1.0,  0.5,  0.5, 1.0 ), // 1
+    vec4(  0.5+1.0,  0.5,  0.5, 1.0 ), // 2
+    vec4(  0.5+1.0, -0.5,  0.5, 1.0 ), // 3
+    vec4( -0.5+1.0, -0.5, -0.5, 1.0 ), // 4 
+    vec4( -0.5+1.0,  0.5, -0.5, 1.0 ), // 5
+    vec4(  0.5+1.0,  0.5, -0.5, 1.0 ), // 6
+    vec4(  0.5+1.0, -0.5, -0.5, 1.0 )  // 7
 ]; 
 
 var vertexColors = [
@@ -45,17 +65,17 @@ const up = vec3(0.0,1.0,0.0); //up direction
 // quad uses first index to set color for face
 function quad(a,b,c,d){
     pointsArray.push(vertices[a]);
-    colorsArray.push(vertextColors[a]);
+    colorsArray.push(vertexColors[a]);
     pointsArray.push(vertices[b]);
-    colorsArray.push(vertextColors[a]);
+    colorsArray.push(vertexColors[a]);
     pointsArray.push(vertices[c]);
-    colorsArray.push(vertextColors[a]);
+    colorsArray.push(vertexColors[a]);
     pointsArray.push(vertices[a]);
-    colorsArray.push(vertextColors[a]);
+    colorsArray.push(vertexColors[a]);
     pointsArray.push(vertices[c]);
-    colorsArray.push(vertextColors[a]);
+    colorsArray.push(vertexColors[a]);
     pointsArray.push(vertices[d]);
-    colorsArray.push(vertextColors[a]);
+    colorsArray.push(vertexColors[a]);
 }
 
 // Each face determines two triangles
@@ -92,7 +112,7 @@ window.onload = function init()
 
     var cBuffer = gl.createBuffer();
     gl.bindBuffer( gl.ARRAY_BUFFER, cBuffer );
-    gl.bufferData( gl.ARRAY_BUFFER, flatten(colors), gl.STATIC_DRAW );
+    gl.bufferData( gl.ARRAY_BUFFER, flatten(colorsArray), gl.STATIC_DRAW );
 
     var vColor = gl.getAttribLocation( program, "vColor" );
     gl.vertexAttribPointer( vColor, 4, gl.FLOAT, false, 0, 0 );
@@ -110,12 +130,12 @@ window.onload = function init()
     modelView = gl.getUniformLocation(program, "modelView"); 
     
     //buttons to change viewing parameters
-    document.getElementsById("Button1").onclick = function(){radius *= 1.1; console.log(radius); console.log(eye);};
-    document.getElementsById("Button2").onclick = function(){radius *= 0.9; console.log(radius); console.log(eye);};
-    document.getElementsById("Button3").onclick = function(){theta += dr; console.log(eye);};
-    document.getElementsById("Button4").onclick = function(){theta -= dr; console.log(eye);};
-    document.getElementsById("Button5").onclick = function(){phi += dr; console.log(eye);};
-    document.getElementsById("Button6").onclick = function(){phi -= dr; console.log(eye);};
+    document.getElementById("Button1").onclick = function(){radius *= 1.1; console.log(radius); console.log(eye);};
+    document.getElementById("Button2").onclick = function(){radius *= 0.9; console.log(radius); console.log(eye);};
+    document.getElementById("Button3").onclick = function(){theta += dr; console.log(eye);};
+    document.getElementById("Button4").onclick = function(){theta -= dr; console.log(eye);};
+    document.getElementById("Button5").onclick = function(){phi += dr; console.log(eye);};
+    document.getElementById("Button6").onclick = function(){phi -= dr; console.log(eye);};
         
     render();
 }
