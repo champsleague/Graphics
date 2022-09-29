@@ -30,6 +30,34 @@ window.onload = function init()
         vec2( -0.6, -0.1)
     ] 
 
+    var homeroof = [
+        vec2( 0.4, 0.35 ), 
+        vec2( 0.7, 0.65 ), 
+        vec2( 1.0, 0.35),
+    ] 
+
+    var home = [
+        vec2( 0.5, -0.1 ), 
+        vec2( 0.5, 0.35 ), 
+        vec2( 0.9, -0.1),
+        vec2( 0.9, 0.35),
+    ] 
+
+    var homedoor = [
+        vec2( 0.75, -0.1 ), 
+        vec2( 0.75, 0.05 ), 
+        vec2( 0.85, -0.1),
+        vec2( 0.85, 0.05),
+    ] 
+
+    var homewindow = [
+        vec2( 0.55, 0.25 ), 
+        vec2( 0.55, 0.1 ), 
+        vec2( 0.75, 0.25),
+        vec2( 0.75, 0.1),
+    ] 
+
+
     var vertices2 = [
         vec2( -0.15, -0.6 ), 
         vec2( -0.35, -0.4 ), 
@@ -124,6 +152,58 @@ window.onload = function init()
     gl.enableVertexAttribArray( vPosition );
     var color = gl.getUniformLocation(program, "color");
 	gl.uniform4fv(color,[0,0.5,0,1.0]);
+    gl.drawArrays(gl.TRIANGLES,0,3);
+
+
+    // Load the data into the GPU (house1)
+    var house1 = gl.createBuffer();
+    gl.bindBuffer( gl.ARRAY_BUFFER, house1 );
+    gl.bufferData( gl.ARRAY_BUFFER,flatten(home), gl.STATIC_DRAW );  
+    // Associate vertex data buffer with shader variables
+    var vPosition = gl.getAttribLocation( program, "vPosition" );
+    gl.vertexAttribPointer( vPosition, 2, gl.FLOAT, false, 0, 0 );
+    gl.enableVertexAttribArray( vPosition );
+    var vcolor = gl.getUniformLocation(program, "color");
+	gl.uniform4fv(vcolor,[1,1,0,1.0]);
+    gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
+
+
+    // Load the data into the GPU (house2) homedoor
+    var house2 = gl.createBuffer();
+    gl.bindBuffer( gl.ARRAY_BUFFER, house2 );
+    gl.bufferData( gl.ARRAY_BUFFER,flatten(homedoor), gl.STATIC_DRAW );  
+    // Associate vertex data buffer with shader variables
+    var vPosition = gl.getAttribLocation( program, "vPosition" );
+    gl.vertexAttribPointer( vPosition, 2, gl.FLOAT, false, 0, 0 );
+    gl.enableVertexAttribArray( vPosition );
+    var vcolor = gl.getUniformLocation(program, "color");
+	gl.uniform4fv(vcolor,[1,0.7,0,1.0]);
+    gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
+
+
+    // Load the data into the GPU (house3) homewindow
+    var house3 = gl.createBuffer();
+    gl.bindBuffer( gl.ARRAY_BUFFER, house3 );
+    gl.bufferData( gl.ARRAY_BUFFER,flatten(homewindow), gl.STATIC_DRAW );  
+    // Associate vertex data buffer with shader variables
+    var vPosition = gl.getAttribLocation( program, "vPosition" );
+    gl.vertexAttribPointer( vPosition, 2, gl.FLOAT, false, 0, 0 );
+    gl.enableVertexAttribArray( vPosition );
+    var vcolor = gl.getUniformLocation(program, "color");
+	gl.uniform4fv(vcolor,[0,0.7,0.8,1.0]);
+    gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
+
+
+    // Load the data into the GPU (house4) homeroof
+    var house4 = gl.createBuffer();
+    gl.bindBuffer( gl.ARRAY_BUFFER, house4 );
+    gl.bufferData( gl.ARRAY_BUFFER,flatten(homeroof), gl.STATIC_DRAW );  
+    // Associate vertex data buffer with shader variables
+    var vPosition = gl.getAttribLocation( program, "vPosition" );
+    gl.vertexAttribPointer( vPosition, 2, gl.FLOAT, false, 0, 0 );
+    gl.enableVertexAttribArray( vPosition );
+    var vcolor = gl.getUniformLocation(program, "color");
+	gl.uniform4fv(vcolor,[0,0,1,1.0]);
     gl.drawArrays(gl.TRIANGLES,0,3);
 
 
