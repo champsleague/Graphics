@@ -16,38 +16,18 @@ var vertices = [
     vec4( -0.5,  0.5, -0.5, 1.0 ), // 5
     vec4(  0.5,  0.5, -0.5, 1.0 ), // 6
     vec4(  0.5, -0.5, -0.5, 1.0 ),  // 7
-
-    //bottom
-    vec4( -0.5, -0.5-1.0,  0.5, 1.0 ), // 0
-    vec4( -0.5,  0.5-1.0,  0.5, 1.0 ), // 1
-    vec4(  0.5,  0.5-1.0,  0.5, 1.0 ), // 2
-    vec4(  0.5, -0.5-1.0,  0.5, 1.0 ), // 3
-    vec4( -0.5, -0.5-1.0, -0.5, 1.0 ), // 4 
-    vec4( -0.5,  0.5-1.0, -0.5, 1.0 ), // 5
-    vec4(  0.5,  0.5-1.0, -0.5, 1.0 ), // 6
-    vec4(  0.5, -0.5-1.0, -0.5, 1.0 ), // 7
-
-    //right
-    vec4( -0.5+1.0, -0.5,  0.5, 1.0 ), // 0
-    vec4( -0.5+1.0,  0.5,  0.5, 1.0 ), // 1
-    vec4(  0.5+1.0,  0.5,  0.5, 1.0 ), // 2
-    vec4(  0.5+1.0, -0.5,  0.5, 1.0 ), // 3
-    vec4( -0.5+1.0, -0.5, -0.5, 1.0 ), // 4 
-    vec4( -0.5+1.0,  0.5, -0.5, 1.0 ), // 5
-    vec4(  0.5+1.0,  0.5, -0.5, 1.0 ), // 6
-    vec4(  0.5+1.0, -0.5, -0.5, 1.0 )  // 7
 ]; 
 
-    var vertexColors = [
-        [ 0.0, 0.0, 0.0, 1.0 ],  // black
-        [ 1.0, 0.0, 0.0, 1.0 ],  // red
-        [ 1.0, 1.0, 0.0, 1.0 ],  // yellow
-        [ 0.0, 1.0, 0.0, 1.0 ],  // green
-        [ 0.0, 0.0, 1.0, 1.0 ],  // blue
-        [ 1.0, 0.0, 1.0, 1.0 ],  // magenta
-        [ 0.0, 1.0, 1.0, 1.0 ],  // cyan
-        [ 1.0, 1.0, 1.0, 1.0 ]   // white
-    ];
+var vertexColors = [
+    [ 0.0, 0.0, 0.0, 1.0 ],  // black
+    [ 1.0, 0.0, 0.0, 1.0 ],  // red
+    [ 1.0, 1.0, 0.0, 1.0 ],  // yellow
+    [ 0.0, 1.0, 0.0, 1.0 ],  // green
+    [ 0.0, 0.0, 1.0, 1.0 ],  // blue
+    [ 1.0, 0.0, 1.0, 1.0 ],  // magenta
+    [ 0.0, 1.0, 1.0, 1.0 ],  // cyan
+    [ 1.0, 1.0, 1.0, 1.0 ]   // white
+];
 
 
 var radius = 1.0;
@@ -59,8 +39,8 @@ var mvMatrix;
 var modelView;
 var eye;
 
-const at = vec3(0.0,0.0,0.0);
-const up = vec3(0.0,1.0,0.0);
+const at = vec3(0.0,0.0,0.0); //at point
+const up = vec3(0.0,1.0,0.0); //up direction
 
 // quad uses first index to set color for face
 function quad(a,b,c,d){
@@ -102,6 +82,7 @@ window.onload = function init()
     gl.clearColor( 1.0, 1.0, 1.0, 1.0 );
     
     gl.enable(gl.DEPTH_TEST);
+    gl.enable(gl.CULL_FACE);
 
     //  Load shaders and initialize attribute buffers
     var program = initShaders( gl, "vertex-shader", "fragment-shader" );
