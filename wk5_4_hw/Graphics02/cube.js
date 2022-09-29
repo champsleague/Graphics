@@ -4,17 +4,67 @@ var gl;
 
 var NumVertices  = 36;
 
-var points = [];
-var colors = [];
+var pointsArray = [];
+var colorsArray = [];
 
-var xAxis = 0;
-var yAxis = 1;
-var zAxis = 2;
+var vertices = [
+    vec4( -0.5, -0.5,  0.5, 1.0 ), // 0
+    vec4( -0.5,  0.5,  0.5, 1.0 ), // 1
+    vec4(  0.5,  0.5,  0.5, 1.0 ), // 2
+    vec4(  0.5, -0.5,  0.5, 1.0 ), // 3
+    vec4( -0.5, -0.5, -0.5, 1.0 ), // 4 
+    vec4( -0.5,  0.5, -0.5, 1.0 ), // 5
+    vec4(  0.5,  0.5, -0.5, 1.0 ), // 6
+    vec4(  0.5, -0.5, -0.5, 1.0 ),  // 7
 
-var axis = 0;
-var theta = [ 0, 0, 0 ];
+    //bottom
+    vec4( -0.5, -0.5-1.0,  0.5, 1.0 ), // 0
+    vec4( -0.5,  0.5-1.0,  0.5, 1.0 ), // 1
+    vec4(  0.5,  0.5-1.0,  0.5, 1.0 ), // 2
+    vec4(  0.5, -0.5-1.0,  0.5, 1.0 ), // 3
+    vec4( -0.5, -0.5-1.0, -0.5, 1.0 ), // 4 
+    vec4( -0.5,  0.5-1.0, -0.5, 1.0 ), // 5
+    vec4(  0.5,  0.5-1.0, -0.5, 1.0 ), // 6
+    vec4(  0.5, -0.5-1.0, -0.5, 1.0 ), // 7
 
-var thetaLoc;
+    //right
+    vec4( -0.5+1.0, -0.5,  0.5, 1.0 ), // 0
+    vec4( -0.5+1.0,  0.5,  0.5, 1.0 ), // 1
+    vec4(  0.5+1.0,  0.5,  0.5, 1.0 ), // 2
+    vec4(  0.5+1.0, -0.5,  0.5, 1.0 ), // 3
+    vec4( -0.5+1.0, -0.5, -0.5, 1.0 ), // 4 
+    vec4( -0.5+1.0,  0.5, -0.5, 1.0 ), // 5
+    vec4(  0.5+1.0,  0.5, -0.5, 1.0 ), // 6
+    vec4(  0.5+1.0, -0.5, -0.5, 1.0 )  // 7
+]; 
+
+    var vertexColors = [
+        [ 0.0, 0.0, 0.0, 1.0 ],  // black
+        [ 1.0, 0.0, 0.0, 1.0 ],  // red
+        [ 1.0, 1.0, 0.0, 1.0 ],  // yellow
+        [ 0.0, 1.0, 0.0, 1.0 ],  // green
+        [ 0.0, 0.0, 1.0, 1.0 ],  // blue
+        [ 1.0, 0.0, 1.0, 1.0 ],  // magenta
+        [ 0.0, 1.0, 1.0, 1.0 ],  // cyan
+        [ 1.0, 1.0, 1.0, 1.0 ]   // white
+    ];
+
+
+var radius = 1.0;
+var theta = 0.0;
+var phi = 0.0;
+var dr = 5.0 * Math.PI/180.0;
+
+var mvMatrix;
+var modelView;
+var eye;
+
+const at = vec3(0.0,0.0,0.0);
+const up = vec3(0.0,1.0,0.0);
+
+
+
+
 
 window.onload = function init()
 {
@@ -163,15 +213,16 @@ function quad(a, b, c, d)
     }
 }
 
-function render()
+var render=function()
 {
     gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+    
+    eye=vec3(radius*Math.cos(theta)*Math.sin(phi), radius*Math.sin(theta),
+            radius*Math.cos(theta)*Math.cos(phi)); // eye point
+    mvMatrix = lookAt(eye, at , up); 
 
-    theta[axis] += 2.0;
-    gl.uniform3fv(thetaLoc, theta);
-
-    gl.drawArrays( gl.TRIANGLES, 0, NumVertices );
-
-    //requestAnimFrame( render );
+    gl.uniformMatrix4fv( modelView, false, flatten(mvMatrix) )
+    gl.drawArrays( gl.TRIANGLES, 0, numVertices );
+    requestAnimFrame(render);
 }
 
