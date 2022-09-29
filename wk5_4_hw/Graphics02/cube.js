@@ -76,11 +76,26 @@ window.onload = function init()
 function colorCube()
 {
     quad( 1, 0, 3, 2 ); // blue
-    quad( 2, 3, 7, 6 ); // yellow
-    quad( 3, 0, 4, 7 ); // green
+    // quad( 2, 3, 7, 6 ); // yellow
+    // quad( 3, 0, 4, 7 ); // green
     quad( 6, 5, 1, 2 ); // cyan
     quad( 4, 5, 6, 7 ); // red       
     quad( 5, 4, 0, 1 ); // magenta
+
+    //bottom
+    quad(8+1,8+0,8+3,8+2);
+    quad(8+2,8+3,8+7,8+6);
+    quad(8+3,8+0,8+4,8+7);
+    // quad(8+6,8+5,8+1,8+2);
+    quad(8+4,8+5,8+6,8+7);
+    quad(8+5,8+4,8+0,8+1);
+
+    quad(16+1,16+0,16+3,16+2);
+    quad(16+2,16+3,16+7,16+6);
+    quad(16+3,16+0,16+4,16+7);
+    quad(16+6,16+5,16+1,16+2);
+    quad(16+4,16+5,16+6,16+7);
+    // quad(16+5,16+4,16+0,16+1);
 }
 
 function quad(a, b, c, d) 
