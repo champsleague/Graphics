@@ -141,26 +141,6 @@ window.onload = function init()
 
 
 
-    // We need to parition the quad into two triangles in order for
-    // WebGL to be able to render it.  In this case, we create two
-    // triangles from the quad indices
-    
-    //vertex color assigned by the index of the vertex
-    
-    var indices = [ a, b, c, a, c, d ]; // 1 0 3, 1 3 2 // 4 5 6, 4 6 7 // ...
-
-	console.log(indices)
-
-    for ( var i = 0; i < indices.length; ++i ) {
-        points.push( vertices[indices[i]] );
-        //colors.push( vertexColors[indices[i]] );
-    
-        // for solid colored faces use 
-        colors.push(vertexColors[a]);
-        
-    }
-
-
 var render=function()
 {
     gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
