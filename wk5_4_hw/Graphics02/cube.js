@@ -63,6 +63,20 @@ const at = vec3(0.0,0.0,0.0);
 const up = vec3(0.0,1.0,0.0);
 
 
+function quad(a,b,c,d){
+    pointsArray.push(vertices[a]);
+    colorsArray.push(vertextColors[a]);
+    pointsArray.push(vertices[b]);
+    colorsArray.push(vertextColors[a]);
+    pointsArray.push(vertices[c]);
+    colorsArray.push(vertextColors[a]);
+    pointsArray.push(vertices[a]);
+    colorsArray.push(vertextColors[a]);
+    pointsArray.push(vertices[c]);
+    colorsArray.push(vertextColors[a]);
+    pointsArray.push(vertices[d]);
+    colorsArray.push(vertextColors[a]);
+}
 
 
 
