@@ -128,20 +128,13 @@ window.onload = function init()
 
     modelView = gl.getUniformLocation(program, "modelView"); 
     
-    //event listeners for buttons
-    
-    document.getElementById( "xButton" ).onclick = function () {
-        axis = xAxis;
-		render();
-    };
-    document.getElementById( "yButton" ).onclick = function () {
-        axis = yAxis;
-		render();
-    };
-    document.getElementById( "zButton" ).onclick = function () {
-        axis = zAxis;
-		render();
-    };
+    //buttons to change viewing parameters
+    document.getElementsById("Button1").onclick = function(){radius *= 1.1; console.log(radius); console.log(eye);};
+    document.getElementsById("Button2").onclick = function(){radius *= 0.9; console.log(radius); console.log(eye);};
+    document.getElementsById("Button3").onclick = function(){theta += dr; console.log(eye);};
+    document.getElementsById("Button4").onclick = function(){theta -= dr; console.log(eye);};
+    document.getElementsById("Button5").onclick = function(){phi += dr; console.log(eye);};
+    document.getElementsById("Button6").onclick = function(){phi -= dr; console.log(eye);};
         
     render();
 }
