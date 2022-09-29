@@ -18,6 +18,28 @@ window.onload = function init()
                                      -0.95,-0.5,  -0.75,-0.3,       -0.55,-0.5,                                    
                                     ]);
          
+    var starone = [
+        vec2( 0.2, 0.75 ), 
+        vec2( 0.3, 0.95 ), 
+        vec2( 0.4, 0.75),
+
+        vec2( 0.2, 0.9 ), 
+        vec2( 0.3, 0.7 ), 
+        vec2( 0.4, 0.9),
+    ]
+
+
+    var startwo = [
+        vec2( -0.7, 0.6 ), 
+        vec2( -0.8, 0.8 ), 
+        vec2( -0.9, 0.6),
+
+        vec2( -0.7, 0.75 ), 
+        vec2( -0.8, 0.55 ), 
+        vec2( -0.9, 0.75),
+    ]
+
+    
     var mount1 = [
         vec2( -0.05, -0.1 ), 
         vec2( -0.45, 0.95 ), 
@@ -129,6 +151,32 @@ window.onload = function init()
     render();
 
 
+    // Load the data into the GPU (star1)
+    var star1 = gl.createBuffer();
+    gl.bindBuffer( gl.ARRAY_BUFFER, star1);
+    gl.bufferData( gl.ARRAY_BUFFER,flatten(starone), gl.STATIC_DRAW );  
+    // Associate vertex data buffer with shader variables
+    var vPosition = gl.getAttribLocation( program, "vPosition" );
+    gl.vertexAttribPointer( vPosition, 2, gl.FLOAT, false, 0, 0 );
+    gl.enableVertexAttribArray( vPosition );
+    var color = gl.getUniformLocation(program, "color");
+    gl.uniform4fv(color,[1,1,1,1.0]);
+    gl.drawArrays(gl.TRIANGLES,0,6);
+
+
+    // Load the data into the GPU (star2)
+    var star2 = gl.createBuffer();
+    gl.bindBuffer( gl.ARRAY_BUFFER, star2);
+    gl.bufferData( gl.ARRAY_BUFFER,flatten(startwo), gl.STATIC_DRAW );  
+    // Associate vertex data buffer with shader variables
+    var vPosition = gl.getAttribLocation( program, "vPosition" );
+    gl.vertexAttribPointer( vPosition, 2, gl.FLOAT, false, 0, 0 );
+    gl.enableVertexAttribArray( vPosition );
+    var color = gl.getUniformLocation(program, "color");
+    gl.uniform4fv(color,[1,1,1,1.0]);
+    gl.drawArrays(gl.TRIANGLES,0,6);
+
+
     // Load the data into the GPU (mountain1)
     var mountain1 = gl.createBuffer();
     gl.bindBuffer( gl.ARRAY_BUFFER, mountain1 );
@@ -138,7 +186,7 @@ window.onload = function init()
     gl.vertexAttribPointer( vPosition, 2, gl.FLOAT, false, 0, 0 );
     gl.enableVertexAttribArray( vPosition );
     var color = gl.getUniformLocation(program, "color");
-	gl.uniform4fv(color,[0,0.8,0,1.0]);
+	gl.uniform4fv(color,[0,0.9,0,1.0]);
     gl.drawArrays(gl.TRIANGLES,0,3);
 
 
