@@ -130,7 +130,8 @@ window.onload = function init()
     
     // Configure WebGL
     gl.viewport( 0, 0, canvas.width, canvas.height );
-    gl.clearColor( 0.0, 0.0, 0.0, 1.0 );
+    // background color
+    gl.clearColor( 0.0, 0.1, 0.3, 1.0 );
 
     //  Load shaders and initialize attribute buffers
     var program = initShaders( gl, "vertex-shader", "fragment-shader" );
@@ -255,7 +256,7 @@ window.onload = function init()
     gl.drawArrays(gl.TRIANGLES,0,3);
 
 
-    // Load the data into the GPU (triangle2)
+    // Load the data into the GPU (triangle2) tree
     var triangle2 = gl.createBuffer();
     gl.bindBuffer( gl.ARRAY_BUFFER, triangle2 );
     gl.bufferData( gl.ARRAY_BUFFER,flatten(vertices2), gl.STATIC_DRAW );  
@@ -268,7 +269,7 @@ window.onload = function init()
     gl.drawArrays(gl.TRIANGLES,0,9);
 
 
-    // Load the data into the GPU (triangle3)
+    // Load the data into the GPU (triangle3) tree
     var triangle3 = gl.createBuffer();
     gl.bindBuffer( gl.ARRAY_BUFFER, triangle3 );
     gl.bufferData( gl.ARRAY_BUFFER,flatten(vertices3), gl.STATIC_DRAW );  
@@ -281,7 +282,7 @@ window.onload = function init()
     gl.drawArrays(gl.TRIANGLES,0,9);
 
 
-    // Load the data into the GPU (square1)
+    // Load the data into the GPU (square1) tree
     var squareBuffer1 = gl.createBuffer();
     gl.bindBuffer( gl.ARRAY_BUFFER, squareBuffer1 );
     gl.bufferData( gl.ARRAY_BUFFER,flatten(sqaurevertices1), gl.STATIC_DRAW );  
@@ -294,7 +295,7 @@ window.onload = function init()
     gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
 
 
-    // Load the data into the GPU (square2)
+    // Load the data into the GPU (square2) tree
     var squareBuffer2 = gl.createBuffer();
     gl.bindBuffer( gl.ARRAY_BUFFER, squareBuffer2 );
     gl.bufferData( gl.ARRAY_BUFFER,flatten(sqaurevertices2), gl.STATIC_DRAW );
@@ -307,7 +308,7 @@ window.onload = function init()
     gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
 
 
-    // Load the data into the GPU (square3)
+    // Load the data into the GPU (square3) tree
     var squareBuffer3 = gl.createBuffer();
     gl.bindBuffer( gl.ARRAY_BUFFER, squareBuffer3 );
     gl.bufferData( gl.ARRAY_BUFFER,flatten(sqaurevertices3), gl.STATIC_DRAW );   
