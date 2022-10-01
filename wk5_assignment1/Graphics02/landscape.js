@@ -173,8 +173,8 @@ window.onload = function init()
     var vPosition = gl.getAttribLocation( program, "vPosition" );
     gl.vertexAttribPointer( vPosition, 2, gl.FLOAT, false, 0, 0 );
     gl.enableVertexAttribArray( vPosition );
-    var color = gl.getUniformLocation(program, "color");
-    gl.uniform4fv(color,[1,1,1,1.0]);
+    var fcolor = gl.getUniformLocation(program, "fcolor");
+    gl.uniform4fv(fcolor,[1,1,1,1.0]);
     gl.drawArrays(gl.TRIANGLES,0,6);
 
 
@@ -225,7 +225,7 @@ window.onload = function init()
     var vPosition = gl.getAttribLocation( program, "vPosition" );
     gl.vertexAttribPointer( vPosition, 2, gl.FLOAT, false, 0, 0 );
     gl.enableVertexAttribArray( vPosition );
-    var vcolor = gl.getUniformLocation(program, "color");
+    var color = gl.getUniformLocation(program, "color");
 	gl.uniform4fv(vcolor,[1,0.7,0,1.0]);
     gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
 
