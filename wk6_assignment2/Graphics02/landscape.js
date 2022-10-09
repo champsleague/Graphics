@@ -60,8 +60,6 @@ window.onload = function init()
 
 
     document.getElementById("slider").onchange = function(event) {
-        console.log(event.srcElement.value);
-        delay = event.srcElement.value; 
         clearInterval(intervalId);
         intervalId = setInterval(render,delay);
     };
