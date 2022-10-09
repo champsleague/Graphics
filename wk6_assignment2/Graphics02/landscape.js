@@ -21,7 +21,7 @@ window.onload = function init()
         gl.bindBuffer(gl.ARRAY_BUFFER,vBuffer);
         var t = vec2(2*event.clientX/canvas.width-1,
         2*(canvas.height-event.clientY)/canvas.height-1);
-        gl.bufferSubData(gl.ARRAY_BUGGER,8*index,flatten(t));
+        gl.bufferSubData(gl.ARRAY_BUFFER,8*index,flatten(t));
 
         gl.bindBuffer(gl.ARRAY_BUFFER,cBuffer);
         t = vec4(colors[(index)%7]);
@@ -29,4 +29,16 @@ window.onload = function init()
         index++;
     });
 
+    gl.viewport(0,0,canvas.width,canvas.height);
+    gl.clearColor(0.5,0.5,0.5,1.0);
+
+    // Load shaders an initialize attribute buffers
+    var program = initShaders(gl,"vertext-shader","fragment-shader");
+    gl.useProgram(program);
+
+    var vBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER,vBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, 8*maxNumVertices, gl.STATIC_DRAW);
+
+    var vPosition
 }
