@@ -64,19 +64,26 @@ window.onload = function init()
 		console.error(error);
 	});
 
-	function animate() {
-	   renderer.render(scene,camera);
-	   requestAnimationFrame(animate);
-	}
+	// function render(time) {
+	// 	time *= 0.001; // convert time to seconds
+	// 	car.rotation.x = time;
+	// 	car.rotation.y = time;
+	// 	renderer.render(scene, camera);
+	// 	requestAnimationFrame(render);
+	// 	}
+	// 	requestAnimationFrame(render);
 
-	function render(time) {
+	function animate(time) {
+		renderer.render(scene,camera);
+		requestAnimationFrame(animate);
+
 		time *= 0.001;  // convert time to seconds
-		lamb.rotation.x = time;
-		lamb.rotation.y = time;
+		car.rotation.x = time;
+		// car.rotation.y = time;
 		renderer.render(scene, camera);
 		requestAnimationFrame(render);
-	   }
-	   requestAnimationFrame(render);
+	 }
+	 requestAnimationFrame(render);
 
 }
 
