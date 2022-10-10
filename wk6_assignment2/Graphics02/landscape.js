@@ -22,6 +22,8 @@ window.onload = function init()
     gl = WebGLUtils.setupWebGL( canvas );
     if ( !gl ) { alert( "WebGL isn't available" ); }
 
+
+    
     // canvas.addEventListener("mousedown",function())
     canvas.addEventListener("mousedown",function(event){
         gl.bindBuffer(gl.ARRAY_BUFFER,vBuffer);
@@ -57,13 +59,6 @@ window.onload = function init()
     var vColor = gl.getAttribLocation( program, "vColor" );
     gl.vertexAttribPointer( vColor, 4, gl.FLOAT, false, 0, 0 );
     gl.enableVertexAttribArray( vColor );
-
-
-    document.getElementById("slider").onchange = function(event) {
-        clearInterval(intervalId);
-        intervalId = setInterval(render,delay);
-    };
-        
 
     render();
 }

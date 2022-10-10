@@ -10,13 +10,13 @@ window.onload = function init()
 
     //  Configure WebGL
     gl.viewport( 0, 0, canvas.width, canvas.height);
-    gl.clearColor( 0.1, 0.1, 0.3, 1.0 );     //Define background #gray
+    gl.clearColor( 0.1, 0.1, 0.3, 1.0 );     
 
     //  Load shaders and initialize 
    var program = initShaders( gl, "vertex-shader", "fragment-shader" );
    gl.useProgram( program );   
 
-    // create a buffer on gpu and bind point    
+   // create a buffer on gpu and bind point    
    var bufferId = gl.createBuffer();
    gl.bindBuffer( gl.ARRAY_BUFFER, bufferId ); 
 
@@ -45,7 +45,7 @@ window.onload = function init()
 
    //mountains
    var mountain = new  Float32Array([
-         -1,-1,-0.5,0.5,0.0,-1
+         -1,-1.2,-0.5,0.2,0.0,-1.3
       ])
 
    gl.bufferData(gl.ARRAY_BUFFER, mountain, gl.STATIC_DRAW );
@@ -53,7 +53,7 @@ window.onload = function init()
    var first = 0 // the starting index in the array of vector points.
    var count = 3 // the number of indices to be rendered.
 
-   gl.uniform4fv(colorLoc,[0,1,0,1]);
+   gl.uniform4fv(colorLoc,[0,0.9,0,1]);
    render(first, count);
 
    gl.uniform4fv(offsetLoc,[0.5,0.0,0,0]);    
