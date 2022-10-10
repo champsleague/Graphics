@@ -1,11 +1,11 @@
 Model Information:
-* title:	Old Rusty Car
-* source:	https://sketchfab.com/3d-models/old-rusty-car-95baa20ebc5d4d2e869f0b549be838fe
-* author:	Renafox (https://sketchfab.com/kryik1023)
+* title:	Lamborghini Aventador
+* source:	https://sketchfab.com/3d-models/lamborghini-aventador-888e37a3641d4f7b94bc1a39396e2441
+* author:	Arion Digital (https://sketchfab.com/andrewswihart)
 
 Model License:
-* license type:	CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
-* requirements:	Author must be credited. No commercial use.
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
 
 If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
-This work is based on "Old Rusty Car" (https://sketchfab.com/3d-models/old-rusty-car-95baa20ebc5d4d2e869f0b549be838fe) by Renafox (https://sketchfab.com/kryik1023) licensed under CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
+This work is based on "Lamborghini Aventador" (https://sketchfab.com/3d-models/lamborghini-aventador-888e37a3641d4f7b94bc1a39396e2441) by Arion Digital (https://sketchfab.com/andrewswihart) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

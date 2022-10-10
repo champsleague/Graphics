@@ -8,8 +8,23 @@ window.onload = function init()
 	const renderer = new THREE.WebGLRenderer({canvas});
 	renderer.setSize(canvas.width,canvas.height);
 
+
+
+	// Scene is the root of a form of scene graph
 	const scene = new THREE.Scene();
 	scene.background = new THREE.Color(0x000000);
+
+	// BoxGeometry contain a set of vertices forming a box
+	const boxWidth = 1;
+	const boxHeight = 1;
+	const boxDepth = 1;
+	const geometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
+
+	// MeshBasicMaterial creates a basic material and set its color
+	const material = new THREE.MeshPhongMaterial({color: 0x4488}); 
+	const lamb = new THREE.Mesh(geometry, material);
+	scene.add(lamb)
+	
 
 	camera = new THREE.PerspectiveCamera(75,canvas.width / canvas.height,0.1, 1000);
 	camera.rotation.y = 45/180*Math.PI;
@@ -21,11 +36,11 @@ window.onload = function init()
 
 	hlight = new THREE.AmbientLight (0x404040,50);
 	scene.add(hlight);
-	light = new THREE.PointLight(0xc4c4c4,10);
+	light = new THREE.DirectionalLight(0xc4c4c4,10);
 	light.position.set(0,3000,5000);
 	scene.add(light);
 
-	light2 = new THREE.PointLight(0xc4c4c4,10);
+	light2 = new THREE.DirectionalLight(0xc4c4c4,10);
 	light2.position.set(5000,1000,0);
 	scene.add(light2);
 
@@ -36,6 +51,7 @@ window.onload = function init()
 	light4 = new THREE.PointLight(0xc4c4c4,10);
 	light4.position.set(-5000,3000,5000);
 	scene.add(light4);
+
 
 
 	const loader = new THREE.GLTFLoader();
