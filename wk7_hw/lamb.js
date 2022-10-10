@@ -64,14 +64,6 @@ window.onload = function init()
 		console.error(error);
 	});
 
-	// function render(time) {
-	// 	time *= 0.001; // convert time to seconds
-	// 	car.rotation.x = time;
-	// 	car.rotation.y = time;
-	// 	renderer.render(scene, camera);
-	// 	requestAnimationFrame(render);
-	// 	}
-	// 	requestAnimationFrame(render);
 
 	function animate(time) {
 		renderer.render(scene,camera);
