@@ -21,7 +21,7 @@ window.onload = function init()
 	const geometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
 
 	// MeshBasicMaterial creates a basic material and set its color
-	const material = new THREE.MeshPhongMaterial({color: 0x4488}); 
+	const material = new THREE.MeshPhongMaterial({color: 0x44aa88}); 
 	const lamb = new THREE.Mesh(geometry, material);
 	scene.add(lamb)
 	
@@ -68,6 +68,15 @@ window.onload = function init()
 	   renderer.render(scene,camera);
 	   requestAnimationFrame(animate);
 	}
+
+	function render(time) {
+		time *= 0.001;  // convert time to seconds
+		lamb.rotation.x = time;
+		lamb.rotation.y = time;
+		renderer.render(scene, camera);
+		requestAnimationFrame(render);
+	   }
+	   requestAnimationFrame(render);
 
 }
 
