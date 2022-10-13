@@ -1,4 +1,4 @@
-        
+
     <!DOCTYPE html>
 <html>
 
@@ -57,15 +57,23 @@ uniform mat4 projectionMatrix;
 
 void main() 
 {
-    gl_Position = projectionMatrix * modelViewMatrix*vPosition;
+
+    mat4 sxyz = mat4(0.5,0.0,0.0,0.0,
+    0.0,0.5,0.0,0.0,
+    0.0,0.0,0.5,0.0,
+    0.0,0.0,0.0,1.0);
+
+    gl_Position = sxyz*projectionMatrix * modelViewMatrix*vPosition;
     fColor = vColor;
 } 
 </script>
 
 <script id="fragment-shader" type="x-shader/x-fragment">
 
-precision mediump float;
-   
+#ifdef Gl_ES
+precision highp float;
+#endif
+
 varying vec4 fColor;
 
 void
