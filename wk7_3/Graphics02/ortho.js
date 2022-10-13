@@ -49,14 +49,20 @@ var vertexColors = [
     [ 1.0, 1.0, 1.0, 1.0 ]   // white
 ];
 
-
+var near = -1;
+var far = 1;
 var radius = 1.0;
 var theta = 0.0;
 var phi = 0.0;
 var dr = 5.0 * Math.PI/180.0;
 
-var mvMatrix;
-var modelView;
+var left = -1.0;
+var right = 1.0;
+var ytop = 1.0;
+var bottom = -1.0;
+
+var modelViewMatrix, projectionMatrix;
+var modelViewMatrixLoc, projectionMatrixLoc;
 var eye;
 
 const at = vec3(0.0,0.0,0.0); //at point
@@ -127,7 +133,8 @@ window.onload = function init()
     gl.vertexAttribPointer( vPosition, 4, gl.FLOAT, false, 0, 0 );
     gl.enableVertexAttribArray( vPosition );
 
-    modelView = gl.getUniformLocation(program, "modelView"); 
+    modelViewMatrixLoc = gl.getUniformLocation(program, "modelViewMatrix"); 
+    projectionMatrixLoc = gl.getUniformLocation(program, "projectionMatrix"); 
     
     //buttons to change viewing parameters
     document.getElementById("Button1").onclick = function(){radius *= 1.1; console.log(radius); console.log(eye);};
