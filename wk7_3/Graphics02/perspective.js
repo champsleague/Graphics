@@ -64,32 +64,40 @@ window.onload = function init()
     modelViewMatrixLoc = gl.getUniformLocation(program, "modelViewMatrix"); 
     projectionMatrixLoc = gl.getUniformLocation(program, "projectionMatrix"); 
     
-    //buttons to change viewing parameters
-    document.getElementById("depthSlider").onchange = function(event){
-        far = event.target.value/2;
-        near = -event.target.value/2;
+    //sliders for viewing parameters
+    document.getElementById("zFarSlider").onchange = function(event){
+        far = event.target.value;
+        render();
     };
+
+    document.getElementById("zNearSlider").onchange = function(event){
+        near = event.target.value;
+        render();
+    }
 
     document.getElementById("radiusSlider").onchange = function(event){
         radius = event.target.value;
+        render();
     }
 
     document.getElementById("thetaSlider").onchange = function(event){
         theta = event.target.value*Math.PI/180.0;
+        render();
     }
 
     document.getElementById("phiSlider").onchange = function(event){
         phi = event.target.value*Math.PI/180.0;
+        render();
     }
 
-    document.getElementById("heightSlider").onchange = function(event){
-        ytop = event.target.value/2;
-        bottom = -event.target.value/2;    
+    document.getElementById("aspectSlider").onchange = function(event){
+        aspect = event.target.value;    
+        render();
     }
 
-    document.getElementById("widthSlider").onchange = function(event){
-        right = event.target.value/2;
-        left = -event.target.value/2;    
+    document.getElementById("fovSlider").onchange = function(event){
+        fovy = event.target.value;
+        render();
     }
     
         
