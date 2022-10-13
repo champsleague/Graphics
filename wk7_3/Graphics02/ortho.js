@@ -17,25 +17,25 @@ var vertices = [
     vec4(  0.5,  0.5, -0.5, 1.0 ), // 6
     vec4(  0.5, -0.5, -0.5, 1.0 ),  // 7
 
-    // bottom
-    vec4( -0.5, -0.5-1.0,  0.5, 1.0 ), // 0
-    vec4( -0.5,  0.5-1.0,  0.5, 1.0 ), // 1
-    vec4(  0.5,  0.5-1.0,  0.5, 1.0 ), // 2
-    vec4(  0.5, -0.5-1.0,  0.5, 1.0 ), // 3
-    vec4( -0.5, -0.5-1.0, -0.5, 1.0 ), // 4 
-    vec4( -0.5,  0.5-1.0, -0.5, 1.0 ), // 5
-    vec4(  0.5,  0.5-1.0, -0.5, 1.0 ), // 6
-    vec4(  0.5, -0.5-1.0, -0.5, 1.0 ),  // 7
+    // // bottom
+    // vec4( -0.5, -0.5-1.0,  0.5, 1.0 ), // 0
+    // vec4( -0.5,  0.5-1.0,  0.5, 1.0 ), // 1
+    // vec4(  0.5,  0.5-1.0,  0.5, 1.0 ), // 2
+    // vec4(  0.5, -0.5-1.0,  0.5, 1.0 ), // 3
+    // vec4( -0.5, -0.5-1.0, -0.5, 1.0 ), // 4 
+    // vec4( -0.5,  0.5-1.0, -0.5, 1.0 ), // 5
+    // vec4(  0.5,  0.5-1.0, -0.5, 1.0 ), // 6
+    // vec4(  0.5, -0.5-1.0, -0.5, 1.0 ),  // 7
 
-    // right
-    vec4( -0.5+1.0, -0.5,  0.5, 1.0 ), // 0
-    vec4( -0.5+1.0,  0.5,  0.5, 1.0 ), // 1
-    vec4(  0.5+1.0,  0.5,  0.5, 1.0 ), // 2
-    vec4(  0.5+1.0, -0.5,  0.5, 1.0 ), // 3
-    vec4( -0.5+1.0, -0.5, -0.5, 1.0 ), // 4 
-    vec4( -0.5+1.0,  0.5, -0.5, 1.0 ), // 5
-    vec4(  0.5+1.0,  0.5, -0.5, 1.0 ), // 6
-    vec4(  0.5+1.0, -0.5, -0.5, 1.0 )  // 7
+    // // right
+    // vec4( -0.5+1.0, -0.5,  0.5, 1.0 ), // 0
+    // vec4( -0.5+1.0,  0.5,  0.5, 1.0 ), // 1
+    // vec4(  0.5+1.0,  0.5,  0.5, 1.0 ), // 2
+    // vec4(  0.5+1.0, -0.5,  0.5, 1.0 ), // 3
+    // vec4( -0.5+1.0, -0.5, -0.5, 1.0 ), // 4 
+    // vec4( -0.5+1.0,  0.5, -0.5, 1.0 ), // 5
+    // vec4(  0.5+1.0,  0.5, -0.5, 1.0 ), // 6
+    // vec4(  0.5+1.0, -0.5, -0.5, 1.0 )  // 7
 ]; 
 
 var vertexColors = [
@@ -137,12 +137,12 @@ window.onload = function init()
     projectionMatrixLoc = gl.getUniformLocation(program, "projectionMatrix"); 
     
     //buttons to change viewing parameters
-    document.getElementById("depthSlide").onchange = function(event){
+    document.getElementById("depthSlider").onchange = function(event){
         far = event.target.value/2;
         near = -event.target.value/2;
     };
 
-    document.getElementById("radiusSlide").onchange = function(event){
+    document.getElementById("radiusSlider").onchange = function(event){
         radius = event.target.value;
     }
 
