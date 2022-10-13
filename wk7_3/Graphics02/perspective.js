@@ -106,6 +106,35 @@ window.onload = function init()
 
 
 
+// // Each face determines two triangles
+function colorCube()
+{
+    quad( 1, 0, 3, 2 ); // blue
+    // quad( 2, 3, 7, 6 ); // yellow
+    // quad( 3, 0, 4, 7 ); // green
+    quad( 6, 5, 1, 2 ); // cyan
+    quad( 4, 5, 6, 7 ); // red       
+    quad( 5, 4, 0, 1 ); // magenta
+
+    // bottom
+    quad( 8+1, 8+0, 8+3, 8+2 ); // blue
+    quad( 8+2, 8+3, 8+7, 8+6 ); // yellow
+    quad( 8+3, 8+0, 8+4, 8+7 ); // green
+    // quad( 8+6, 8+5, 8+1, 8+2 ); // cyan
+    quad( 8+4, 8+5, 8+6, 8+7 ); // red       
+    quad( 8+5, 8+4, 8+0, 8+1 ); // magenta
+
+    quad( 16+1, 16+0, 16+3, 16+2 ); // blue
+    quad( 16+2, 16+3, 16+7, 16+6 ); // yellow
+    quad( 16+3,16+0, 16+4, 16+7 ); // green
+    quad( 16+6, 16+5, 16+1, 16+2 ); // cyan
+    quad( 16+4, 16+5, 16+6, 16+7 ); // red       
+    // quad( 16+5, 16+4, 16+0, 16+1 ); // magenta
+
+}
+
+
+
 // quad uses first index to set color for face
 function quad(a,b,c,d){
     var vertices = [
@@ -161,17 +190,6 @@ console.log(indices)
         // for solid colored faces use
         colors.push(vertexColors[a%8]);
     }
-
-// // Each face determines two triangles
-// function colorCube()
-// {
-//     quad( 1, 0, 3, 2 ); // blue
-//     quad( 2, 3, 7, 6 ); // yellow
-//     quad( 3, 0, 4, 7 ); // green
-//     quad( 6, 5, 1, 2 ); // cyan
-//     quad( 4, 5, 6, 7 ); // red       
-//     quad( 5, 4, 0, 1 ); // magenta
-// }
 
 
 
