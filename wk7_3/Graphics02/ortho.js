@@ -155,9 +155,11 @@ var render=function()
     
     eye=vec3(radius*Math.cos(theta)*Math.sin(phi), radius*Math.sin(theta),
             radius*Math.cos(theta)*Math.cos(phi)); // eye point
-    mvMatrix = lookAt(eye, at , up); 
+    modelViewMatrix = lookAt(eye, at , up); 
+    projectionMatrix = ortho(left,right,bottom,ytop,near,far);
 
-    gl.uniformMatrix4fv( modelView, false, flatten(mvMatrix) )
+    gl.uniformMatrix4fv( modelViewMatrixLoc, false, flatten(modelViewMatrix) );
+    gl.uniformMatrix4fv( projectionMatrixLoc, false, flatten(projectionMatrix) );
     gl.drawArrays( gl.TRIANGLES, 0, numVertices );
     requestAnimFrame(render);
 }
