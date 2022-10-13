@@ -137,12 +137,33 @@ window.onload = function init()
     projectionMatrixLoc = gl.getUniformLocation(program, "projectionMatrix"); 
     
     //buttons to change viewing parameters
-    document.getElementById("Button1").onclick = function(){radius *= 1.1; console.log(radius); console.log(eye);};
-    document.getElementById("Button2").onclick = function(){radius *= 0.9; console.log(radius); console.log(eye);};
-    document.getElementById("Button3").onclick = function(){theta += dr; console.log(eye);};
-    document.getElementById("Button4").onclick = function(){theta -= dr; console.log(eye);};
-    document.getElementById("Button5").onclick = function(){phi += dr; console.log(eye);};
-    document.getElementById("Button6").onclick = function(){phi -= dr; console.log(eye);};
+    document.getElementById("depthSlide").onchange = function(event){
+        far = event.target.value/2;
+        near = -event.target.value/2;
+    };
+
+    document.getElementById("radiusSlide").onchange = function(event){
+        radius = event.target.value;
+    }
+
+    document.getElementById("thetaSlider").onchange = function(event){
+        theta = event.target.value*Math.PI/180.0;
+    }
+
+    document.getElementById("phiSlider").onchange = function(event){
+        phi = event.target.value*Math.PI/180.0;
+    }
+
+    document.getElementById("heightSlider").onchange = function(event){
+        ytop = event.target.value/2;
+        bottom = -event.target.value/2;    
+    }
+
+    document.getElementById("widthSlider").onchange = function(event){
+        right = event.target.value/2;
+        left = -event.target.value/2;    
+    }
+    
         
     render();
 }
