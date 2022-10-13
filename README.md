@@ -1,3 +1,3 @@
 ## Computer Graphics  
-### Weekly projects (WebGL)
+### Weekly projects (WebGL, OpenGL)
 
