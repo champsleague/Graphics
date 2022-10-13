@@ -2,64 +2,20 @@
 var canvas;
 var gl;
 
-var numVertices  = 36;
+var numVertices  = 84;
 
-var pointsArray = [];
-var colorsArray = [];
+var points = [];
+var colors = [];
 
-var vertices = [
-    vec4( -0.5, -0.5,  0.5, 1.0 ), // 0
-    vec4( -0.5,  0.5,  0.5, 1.0 ), // 1
-    vec4(  0.5,  0.5,  0.5, 1.0 ), // 2
-    vec4(  0.5, -0.5,  0.5, 1.0 ), // 3
-    vec4( -0.5, -0.5, -0.5, 1.0 ), // 4 
-    vec4( -0.5,  0.5, -0.5, 1.0 ), // 5
-    vec4(  0.5,  0.5, -0.5, 1.0 ), // 6
-    vec4(  0.5, -0.5, -0.5, 1.0 ),  // 7
-
-    // // bottom
-    // vec4( -0.5, -0.5-1.0,  0.5, 1.0 ), // 0
-    // vec4( -0.5,  0.5-1.0,  0.5, 1.0 ), // 1
-    // vec4(  0.5,  0.5-1.0,  0.5, 1.0 ), // 2
-    // vec4(  0.5, -0.5-1.0,  0.5, 1.0 ), // 3
-    // vec4( -0.5, -0.5-1.0, -0.5, 1.0 ), // 4 
-    // vec4( -0.5,  0.5-1.0, -0.5, 1.0 ), // 5
-    // vec4(  0.5,  0.5-1.0, -0.5, 1.0 ), // 6
-    // vec4(  0.5, -0.5-1.0, -0.5, 1.0 ),  // 7
-
-    // // right
-    // vec4( -0.5+1.0, -0.5,  0.5, 1.0 ), // 0
-    // vec4( -0.5+1.0,  0.5,  0.5, 1.0 ), // 1
-    // vec4(  0.5+1.0,  0.5,  0.5, 1.0 ), // 2
-    // vec4(  0.5+1.0, -0.5,  0.5, 1.0 ), // 3
-    // vec4( -0.5+1.0, -0.5, -0.5, 1.0 ), // 4 
-    // vec4( -0.5+1.0,  0.5, -0.5, 1.0 ), // 5
-    // vec4(  0.5+1.0,  0.5, -0.5, 1.0 ), // 6
-    // vec4(  0.5+1.0, -0.5, -0.5, 1.0 )  // 7
-]; 
-
-var vertexColors = [
-    [ 0.0, 0.0, 0.0, 1.0 ],  // black
-    [ 1.0, 0.0, 0.0, 1.0 ],  // red
-    [ 1.0, 1.0, 0.0, 1.0 ],  // yellow
-    [ 0.0, 1.0, 0.0, 1.0 ],  // green
-    [ 0.0, 0.0, 1.0, 1.0 ],  // blue
-    [ 1.0, 0.0, 1.0, 1.0 ],  // magenta
-    [ 0.0, 1.0, 1.0, 1.0 ],  // cyan
-    [ 1.0, 1.0, 1.0, 1.0 ]   // white
-];
-
-var near = -1;
-var far = 1;
-var radius = 1.0;
+var near = 0.3;
+var far = 3.0;
+var radius = 4.0;
 var theta = 0.0;
 var phi = 0.0;
 var dr = 5.0 * Math.PI/180.0;
 
-var left = -1.0;
-var right = 1.0;
-var ytop = 1.0;
-var bottom = -1.0;
+var fovy = 45.0;
+var aspect = 1.0;
 
 var modelViewMatrix, projectionMatrix;
 var modelViewMatrixLoc, projectionMatrixLoc;
@@ -68,21 +24,64 @@ var eye;
 const at = vec3(0.0,0.0,0.0); //at point
 const up = vec3(0.0,1.0,0.0); //up direction
 
+
+
+
 // quad uses first index to set color for face
 function quad(a,b,c,d){
-    pointsArray.push(vertices[a]);
-    colorsArray.push(vertexColors[a]);
-    pointsArray.push(vertices[b]);
-    colorsArray.push(vertexColors[a]);
-    pointsArray.push(vertices[c]);
-    colorsArray.push(vertexColors[a]);
-    pointsArray.push(vertices[a]);
-    colorsArray.push(vertexColors[a]);
-    pointsArray.push(vertices[c]);
-    colorsArray.push(vertexColors[a]);
-    pointsArray.push(vertices[d]);
-    colorsArray.push(vertexColors[a]);
+    var vertices = [
+        vec4( -0.5, -0.5,  0.5, 1.0 ), // 0
+        vec4( -0.5,  0.5,  0.5, 1.0 ), // 1
+        vec4(  0.5,  0.5,  0.5, 1.0 ), // 2
+        vec4(  0.5, -0.5,  0.5, 1.0 ), // 3
+        vec4( -0.5, -0.5, -0.5, 1.0 ), // 4 
+        vec4( -0.5,  0.5, -0.5, 1.0 ), // 5
+        vec4(  0.5,  0.5, -0.5, 1.0 ), // 6
+        vec4(  0.5, -0.5, -0.5, 1.0 ),  // 7
+    
+        // bottom
+        vec4( -0.5, -0.5-1.0,  0.5, 1.0 ), // 0
+        vec4( -0.5,  0.5-1.0,  0.5, 1.0 ), // 1
+        vec4(  0.5,  0.5-1.0,  0.5, 1.0 ), // 2
+        vec4(  0.5, -0.5-1.0,  0.5, 1.0 ), // 3
+        vec4( -0.5, -0.5-1.0, -0.5, 1.0 ), // 4 
+        vec4( -0.5,  0.5-1.0, -0.5, 1.0 ), // 5
+        vec4(  0.5,  0.5-1.0, -0.5, 1.0 ), // 6
+        vec4(  0.5, -0.5-1.0, -0.5, 1.0 ),  // 7
+    
+        // right
+        vec4( -0.5+1.0, -0.5,  0.5, 1.0 ), // 0
+        vec4( -0.5+1.0,  0.5,  0.5, 1.0 ), // 1
+        vec4(  0.5+1.0,  0.5,  0.5, 1.0 ), // 2
+        vec4(  0.5+1.0, -0.5,  0.5, 1.0 ), // 3
+        vec4( -0.5+1.0, -0.5, -0.5, 1.0 ), // 4 
+        vec4( -0.5+1.0,  0.5, -0.5, 1.0 ), // 5
+        vec4(  0.5+1.0,  0.5, -0.5, 1.0 ), // 6
+        vec4(  0.5+1.0, -0.5, -0.5, 1.0 )  // 7
+    ]; 
+    
+    var vertexColors = [
+        [ 0.0, 0.0, 0.0, 1.0 ],  // black
+        [ 1.0, 0.0, 0.0, 1.0 ],  // red
+        [ 1.0, 1.0, 0.0, 1.0 ],  // yellow
+        [ 0.0, 1.0, 0.0, 1.0 ],  // green
+        [ 0.0, 0.0, 1.0, 1.0 ],  // blue
+        [ 1.0, 0.0, 1.0, 1.0 ],  // magenta
+        [ 0.0, 1.0, 1.0, 1.0 ],  // cyan
+        [ 1.0, 1.0, 1.0, 1.0 ]   // white
+    ];
 }
+
+var indices = [a,b,c,a,c,d]; //1 0 3, 1 3 2 // 4 5 6, 4 6 7
+
+console.log(indices)
+    for (var i = 0; i<indices.length; ++i){
+        points.push(verices[indices[i]]);
+        // colors.push(vertexColors[indices[i]]);
+
+        // for solid colored faces use
+        colors.push(vertexColors[a%8]);
+    }
 
 // Each face determines two triangles
 function colorCube()
