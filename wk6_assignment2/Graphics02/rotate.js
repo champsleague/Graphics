@@ -20,4 +20,14 @@ window.onload = function init()
     gl.bindBuffer(gl.ARRAY_BUFFER,bufferId);
     gl.bufferData(gl.ARRAY_BUFFER,flatten(vertices),gl.STATIC_DRAW)
     
+
+    var vPosition = gl.getAttribLocation( program, "vPosition" );
+    gl.vertexAttribPointer( vPosition, 2, gl.FLOAT, false, 0, 0 );
+    gl.enableVertexAttribArray( vPosition );
+    thetaLoc = gl.getUniformLocation(program,"theta");
+
+    document.getElementById("Direction").onclick=  function(){
+        console.log(event.button)
+        direction =! direction;
+    }
 }
