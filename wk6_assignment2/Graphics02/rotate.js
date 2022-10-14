@@ -59,3 +59,23 @@ function render(){
     gl.drawArrays(gl.TRIANGLE_STRIP,0,4)
     // requestAnimFrame(render)
 }
+
+function c2(){
+    console.log("first event")
+    console.log(event.keyCode)
+    switch (event.keyCode){
+        case 49:
+            direction =! direction;
+            break;
+        case 50:
+            delay /= 2.0
+            clearInterval(intervalId);
+            intervalId = setInterval(render,delay)
+            break;
+        case 51:
+            delay *= 2.0
+            clearInterval(intervalId);
+            intervalId = setInterval(render,delay)
+            break;
+    }
+}
