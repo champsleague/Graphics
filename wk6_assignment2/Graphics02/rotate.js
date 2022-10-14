@@ -51,3 +51,11 @@ window.onload = function init()
     window.addEventListener("keydown",c2);
     intervalId = setInterval(render,delay)
 }
+
+function render(){
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    theta += (direction ? 0.1 : -0.1);
+    gl.uniform1f(thetaLoc,theta);
+    gl.drawArrays(gl.TRIANGLE_STRIP,0,4)
+    // requestAnimFrame(render)
+}
