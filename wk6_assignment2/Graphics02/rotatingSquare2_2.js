@@ -1,8 +1,6 @@
 
 var gl;
 
-var intervalId;
-
 var theta = 0.0;
 var thetaLoc;
 
@@ -28,17 +26,10 @@ window.onload = function init()
     gl.useProgram( program );
 
     var vertices = [
-        vec2(  0,  0.2 ),
-        vec2(  -0.2,  0 ),
-        vec2( 0.2,  0 ),
-
-        vec2(  0, 0.0 ),
-        vec2( 0.2,  0.0),
-        vec2( -0.2,  -0.1 ),
-
-        vec2(  0, 0.1 ),
-        vec2( 0.4,  0.3 ),
-        vec2( -0.2,  0.1 ),
+        vec2(  0,  0.5 ),
+        vec2(  -0.5,  0 ),
+        vec2( 0.5,  0 ),
+        vec2(  0, -0.5 )
     ];
 
 
@@ -83,15 +74,9 @@ window.onload = function init()
             break;
          case 1:
             delay /= 2.0;
-	        clearInterval(intervalId);
-            intervalId = setInterval(render, delay);
-
             break;
          case 2:
             delay *= 2.0;
-            clearInterval(intervalId);
-            intervalId = setInterval(render, delay);
-
             break;
        }
     };
@@ -104,13 +89,9 @@ window.onload = function init()
 				break;
 			case 50: // ��2�� key
 				delay /= 2.0;
-		        clearInterval(intervalId);
-		        intervalId = setInterval(render, delay);
 				break;
 			case 51: // ��3�� key
 				delay *= 2.0;
-		        clearInterval(intervalId);
-	            intervalId = setInterval(render, delay);
 				break;
 		}	
 	});
@@ -134,9 +115,7 @@ window.onload = function init()
         }
     };
 	*/
-
-	intervalId = setInterval(render,100);	
-    //render();
+    render();
 };
 
 
@@ -147,7 +126,11 @@ function render()
     theta += (direction ? 0.1 : -0.1);
     gl.uniform1f(thetaLoc, theta);
 
-    gl.drawArrays(gl.TRIANGLE_FAN, 0, 9);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+
+    setTimeout(
+        function (){requestAnimFrame(render);}, delay
+    );
 }
 
 /*

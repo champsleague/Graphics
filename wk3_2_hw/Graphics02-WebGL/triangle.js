@@ -10,14 +10,14 @@ window.onload = function init()
     if ( !gl ) { alert( "WebGL isn't available" ); }
 
     //vertex position
-    var vertices = [
+    var t_vertices = [
         vec2(0,0.5),  //v0
         vec2(-0.5,-0.5),  //v1
         vec2(0.5,-0.5),  //v2
     ];
 
     //vertex color (R,G,B,A)
-    var colors = [
+    var t_colors = [
         vec4(1.0,0.0,0.0,1.0), //v0
         vec4(0.0,1.0,0.0,1.0), //v1
         vec4(0.0,0.0,1.0,1.0) //v2
@@ -34,16 +34,16 @@ window.onload = function init()
 
     var vertexPositionBufferId = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBufferId);
-    gl.bufferData(gl.ARRAY_BUFFER, flatten(vertices),gl.STATIC_DRAW);
+    gl.bufferData(gl.ARRAY_BUFFER, flatten(t_vertices),gl.STATIC_DRAW);
 
-    var vPosition = gl.getAttribLocation( program, "vPosition" );
-    gl.vertexAttribPointer( vPosition, 2, gl.FLOAT, false, 0, 0 );
-    gl.enableVertexAttribArray( vPosition );
+    var fPosition = gl.getAttribLocation( program, "fPosition" );
+    gl.vertexAttribPointer( fPosition, 2, gl.FLOAT, false, 0, 0 );
+    gl.enableVertexAttribArray( fPosition );
 
 
     var vertexColorBufferId = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, vertexColorBufferId);
-    gl.bufferData(gl.ARRAY_BUFFER, flatten(colors),gl.STATIC_DRAW);
+    gl.bufferData(gl.ARRAY_BUFFER, flatten(t_colors),gl.STATIC_DRAW);
 
     var vColor = gl.getAttribLocation(program,"vColor");
     gl.vertexAttribPointer(vColor,4,gl.FLOAT,false,0,0);
