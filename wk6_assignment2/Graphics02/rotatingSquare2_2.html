@@ -10,6 +10,7 @@ attribute vec4 fPosition;
 uniform float theta;
 attribute vec4 vColor;
 varying vec4 fColor;
+uniform vec4 color;
 
 
 void main()
@@ -24,9 +25,6 @@ void main()
 
     fColor = vColor;
     gl_Position = fPosition;
-
-    
-
     
 }
 </script>
@@ -34,11 +32,13 @@ void main()
 <script id="fragment-shader" type="x-shader/x-fragment">
 
 precision mediump float;
+varying vec4 fColor;
+uniform vec4 color;
 
 
 void main()
 {
-    gl_FragColor = vec4( 1.0, 0.0, 0.0, 1.0 );
+    gl_FragColor = color+fColor;
 }
 </script>
 

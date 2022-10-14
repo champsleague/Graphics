@@ -6,8 +6,12 @@
 
 attribute vec4 vPosition;
 attribute vec4 vColor;
-
 varying vec4 fColor;
+
+
+attribute vec4 fPosition;
+attribute vec4 aColor;
+varying vec4 uColor;
 
 void
 main()
@@ -15,19 +19,23 @@ main()
     gl_Position = vPosition;
     fColor = vColor;
     gl_PointSize = 10.0;
+
+
+    uColor = aColor;
+    gl_Position = fPosition;
 }
 </script>
 
 <script id="fragment-shader" type="x-shader/x-fragment">
 
 precision mediump float;
-
+varying vec4 uColor;
 varying vec4 fColor;
 
 void
 main()
 {
-    gl_FragColor = fColor;
+    gl_FragColor = uColor + fColor;
 }
 </script>
 

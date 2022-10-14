@@ -45,9 +45,9 @@ window.onload = function init()
     gl.bindBuffer(gl.ARRAY_BUFFER, vertexColorBufferId);
     gl.bufferData(gl.ARRAY_BUFFER, flatten(t_colors),gl.STATIC_DRAW);
 
-    var vColor = gl.getAttribLocation(program,"vColor");
-    gl.vertexAttribPointer(vColor,4,gl.FLOAT,false,0,0);
-    gl.enableVertexAttribArray(vColor)
+    var aColor = gl.getAttribLocation(program,"aColor");
+    gl.vertexAttribPointer(aColor,4,gl.FLOAT,false,0,0);
+    gl.enableVertexAttribArray(aColor)
 
      //render
      gl.clear( gl.COLOR_BUFFER_BIT );
