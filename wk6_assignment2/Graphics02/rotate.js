@@ -30,4 +30,24 @@ window.onload = function init()
         console.log(event.button)
         direction =! direction;
     }
+
+    document.getElementById("Controls").onclick = function(event){
+        switch(event.target.index){
+            case 0:
+                direction = !direction;
+                break;
+            case 1:
+                delay /= 2.0;
+                clearInterval(intervalId);
+                intervalId = setInterval(render,delay);
+                break;
+            case 2:
+                delay *= 2.0;
+                clearInterval(intervalId);
+                intervalId = setInterval(render,delay);
+                break;
+        }
+    }
+    window.addEventListener("keydown",c2);
+    intervalId = setInterval(render,delay)
 }
