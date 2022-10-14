@@ -5,12 +5,6 @@ var MaxNumTriangles = 200;
 var maxNumVertices = 3 * MaxNumTriangles;
 var index = 0;
 
-var theta = 0.0;
-var thetaLoc;
-var delay = 100;
-var direction = true;
-var intervalId;
-
 var colors = [
     vec4(1.0,1.0,0.0,1.0), //yellow
     vec4(1.0,1.0,0.0,1.0), //yellow
@@ -45,12 +39,6 @@ window.onload = function init()
 
     gl.viewport(0,0,canvas.width,canvas.height);
     gl.clearColor(0.1,0.1,0.3,1.0);
-
-    var vertices = [vec2(0,1), vec2(-1,0), vec2(1,0), vec2(0,-1)]
-
-    var bufferId = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER,bufferId);
-    gl.bufferData(gl.ARRAY_BUFFER,flatten(vertices),gl.STATIC_DRAW)
 
     // Load shaders an initialize attribute buffers
     var program = initShaders(gl,"vertex-shader","fragment-shader");
