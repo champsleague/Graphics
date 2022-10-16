@@ -11,6 +11,14 @@ var maxNumTriangles = 200;
 var maxNumVertices  = 3 * maxNumTriangles;
 var index = 0;
 
+var starlist = [
+    vec2(0.5,0.5),
+    vec2(0.3,0.8),
+    vec2(-0.5,-0.5),
+    vec2(-0.1,0.5),
+    vec2(0.5,-0.5)
+  
+];
 
 window.onload = function init()
 {
@@ -89,11 +97,11 @@ window.onload = function init()
     });
     
    
-    render1();
+    render0();
     
 };
 
-function render1()
+function render0()
 {
 
     function drawMountain(){
@@ -147,7 +155,7 @@ function render1()
 
 
 
-    function drawHouse(){
+    function house(){
 
         var house = new Float32Array([
             -0.35,-0.7,-0.05,-0.4,0.25,-0.7,
@@ -181,50 +189,8 @@ function render1()
         gl.enableVertexAttribArray( vColor );
     
         gl.drawArrays( gl.TRIANGLES, 0, 9 );
-    
-    }
-
-
-    function drawStar(){
-
-        var starlist = new Float32Array([
-            -0.35,-0.7,-0.05,-0.4,0.25,-0.7,
-            -0.2,-0.7,0.1,-0.7,-0.2,-0.95,
-             0.1,-0.7,-0.2,-0.95,0.1,-0.95
-    ])
-    
-        var starcolors = [
-            vec4( 1.0, 1.0, 0.0, 1.0 ),  // yellow
-            vec4( 1.0, 1.0, 0.0, 1.0 ),  // yellow
-            vec4( 1.0, 1.0, 0.0, 1.0 ),  // yellow
-            vec4( 1.0, 1.0, 0.0, 1.0 ),  // yellow
-            vec4( 1.0, 1.0, 0.0, 1.0 ),  // yellow
-            vec4( 1.0, 1.0, 0.0, 1.0 ),  // yellow
-            vec4( 1.0, 1.0, 0.0, 1.0 ),  // yellow
-            vec4( 1.0, 1.0, 0.0, 1.0 ),  // yellow
-            vec4( 1.0, 1.0, 0.0, 1.0 ),  // yellow
-        ];
-    
-         // Load the data into the GPU
-        var bufferId = gl.createBuffer();
-        gl.bindBuffer( gl.ARRAY_BUFFER, bufferId );
-        gl.bufferData( gl.ARRAY_BUFFER,flatten(starlist), gl.STATIC_DRAW );
-    
-        // Associate out shader variables with our data buffer
-        var vPosition = gl.getAttribLocation( program, "vPosition" );
-        gl.vertexAttribPointer( vPosition, 2, gl.FLOAT, false, 0, 0 );
-        gl.enableVertexAttribArray( vPosition );
-    
-        var vertexColorBufferId = gl.createBuffer()
-        gl.bindBuffer(gl.ARRAY_BUFFER, vertexColorBufferId)
-        gl.bufferData(gl.ARRAY_BUFFER, flatten(starcolors), gl.STATIC_DRAW)
-    
         
-        var vColor = gl.getAttribLocation( program, "vColor" );
-        gl.vertexAttribPointer( vColor, 4, gl.FLOAT, false, 0, 0 );
-        gl.enableVertexAttribArray( vColor );
-    
-        gl.drawArrays( gl.TRIANGLES, 0, 9 );
+        
     
     }
 
@@ -259,7 +225,7 @@ function render1()
 
     gl.uniform4fv(offsetLoc,[0.7,0.0,0,0]); 
     gl.uniform4fv(colorLoc,[1,1,0,1]);
-    drawHouse();
+    house();
 
 
 
@@ -290,10 +256,7 @@ function render1()
             vec4(1,1,0,1),
             vec4(1,1,0,1),
             vec4(1,1,0,1),
-            vec4(1,1,0,1),
-            vec4(1,1,0,1),
-            vec4(1,1,0,1),
-          
+           
         ];
     
         // Load the data into the GPU
@@ -317,18 +280,15 @@ function render1()
         thetaLoc = gl.getUniformLocation( program, "theta" );
         
         gl.uniform4fv(colorLoc,[1,1,0,1]);
-        gl.uniform4f(offsetLoc, -0.8, 0.9, 0.0, 1);
-        // rotation moon
+        gl.uniform4f(offsetLoc, -0.8, 0.7, 0, 1);
+
+        // rotate
         theta += (direction ? 0.1 : -0.1);
         gl.uniform1f(thetaLoc, theta);
         gl.drawArrays(gl.TRIANGLE_STRIP, 0, 18);
     
 
-   
-
-    //gl.drawArrays(gl.TRIANGLES, 0, 18);
-
     setTimeout(
-        function (){requestAnimFrame(render1);}, delay
+        function (){requestAnimFrame(render0);}, delay
     );
 }

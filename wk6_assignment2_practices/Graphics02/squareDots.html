@@ -4,7 +4,7 @@
 
 <script id="vertex-shader" type="x-shader/x-vertex">
 
-attribute vec4 vPosition;
+attribute vec4 aPosition;
 attribute vec4 vColor;
 
 varying vec4 fColor;
@@ -12,7 +12,7 @@ varying vec4 fColor;
 void
 main()
 {
-    gl_Position = vPosition;
+    gl_Position = aPosition;
     fColor = vColor;
     gl_PointSize = 10.0;
 }
