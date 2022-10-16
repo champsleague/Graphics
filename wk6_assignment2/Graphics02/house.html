@@ -12,12 +12,12 @@ uniform float theta;
 void
 main()
 {
-   gl_Position = vPosition + offset;
+   gl_Position += offset;
    fColor = vColor;
    gl_PointSize = 1.0;
 
    float s = sin( theta );
-    float c = cos( theta );
+   float c = cos( theta );
 
     gl_Position.x =  c * vPosition.x - s * vPosition.y;
     gl_Position.y =  s * vPosition.x + c * vPosition.y;
@@ -36,7 +36,7 @@ varying vec4 fColor;
 void
 main()
 {
-   gl_FragColor = color + fColor;
+   gl_FragColor = fColor;
 }
 </script>
 
