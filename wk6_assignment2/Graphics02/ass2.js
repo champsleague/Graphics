@@ -27,10 +27,7 @@ window.onload = function init()
     gl = WebGLUtils.setupWebGL( canvas );
     if ( !gl ) { alert( "WebGL isn't available" ); }
 
-    
-
     //  Configure WebGL
-
     gl.viewport( 0, 0, canvas.width, canvas.height);
     gl.clearColor( 0.1, 0.1, 0.4, 1.0 );     //Define background
 
@@ -49,6 +46,7 @@ window.onload = function init()
     });
 
 
+    // switch case for the controls (direction, faster and slower)
     document.getElementById("Controls" ).onclick = function(event) {
         //switch( event.srcElement.index ) {
         switch( event.target.index ) {
@@ -79,12 +77,10 @@ window.onload = function init()
 		}	
 	});
 
-    // uniform variable
-    
    offsetLoc = gl.getUniformLocation(program, "offset");
    colorLoc = gl.getUniformLocation(program, "color");
 
-    //click, save star location
+    //generate the polygon when clicking the mouse
     canvas.addEventListener("mousedown", function(event){
 
         var t = vec2(2*event.clientX/canvas.width-1, 
@@ -101,9 +97,11 @@ window.onload = function init()
     
 };
 
+// function for rendering 
 function render0()
 {
 
+    //functon for drawing the mountains
     function drawMountain(){
 
         mountain = [
@@ -115,7 +113,7 @@ function render0()
         mountainColor=[
             vec4(0,1,0.7,0.5),
             vec4(0.3,0.5,0,1),
-            vec4(0.2,0.6,0,1),
+            vec4(1.0,0.6,0,1),
            ];
     
          // Load the data into the GPU
@@ -154,7 +152,7 @@ function render0()
     }
 
 
-
+//functon for drawing the house
     function house(){
 
         var house = new Float32Array([
@@ -196,7 +194,7 @@ function render0()
 
 
 
-    // theta initialization
+    // initialize theta 
     gl.uniform1f(thetaLoc, 0);
 
     gl.clear( gl.COLOR_BUFFER_BIT );
@@ -223,7 +221,7 @@ function render0()
     
    
 
-    gl.uniform4fv(offsetLoc,[0.7,0.0,0,0]); 
+    gl.uniform4fv(offsetLoc,[0.2,0.0,0,0]); 
     gl.uniform4fv(colorLoc,[1,1,0,1]);
     house();
 
@@ -264,8 +262,7 @@ function render0()
         gl.bindBuffer( gl.ARRAY_BUFFER, bufferId );
         gl.bufferData( gl.ARRAY_BUFFER,moon, gl.STATIC_DRAW );
     
-        // Associate out shader variables with our data buffer
-        
+        // Associate shader variables with our data buffer
         var vPosition = gl.getAttribLocation( program, "vPosition" );
         gl.vertexAttribPointer( vPosition, 2, gl.FLOAT, false, 0, 0 );
         gl.enableVertexAttribArray( vPosition );
@@ -282,7 +279,7 @@ function render0()
         gl.uniform4fv(colorLoc,[1,1,0,1]);
         gl.uniform4f(offsetLoc, -0.8, 0.7, 0, 1);
 
-        // rotate
+        // rotate the moon
         theta += (direction ? 0.1 : -0.1);
         gl.uniform1f(thetaLoc, theta);
         gl.drawArrays(gl.TRIANGLE_STRIP, 0, 18);
