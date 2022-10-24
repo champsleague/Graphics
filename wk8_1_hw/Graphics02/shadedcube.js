@@ -90,37 +90,44 @@ window.onload = function init()
     if ( !gl ) { alert( "WebGL isn't available" ); }
 
     gl.viewport( 0, 0, canvas.width, canvas.height );
-    
-    aspect = canvas.width/canvas.height;
     gl.clearColor( 1.0, 1.0, 1.0, 1.0 );
-    gl.enable(gl.DEPTH_TEST);
-    gl.enable(gl.CULL_FACE);
+
+    // gl.enable(gl.DEPTH_TEST);
+    // gl.enable(gl.CULL_FACE);
 
     //  Load shaders and initialize attribute buffers
-    var program = initShaders( gl, "vertex-shader", "fragment-shader" );
+    program = initShaders( gl, "vertex-shader", "fragment-shader" );
     gl.useProgram( program );
     
     colorCube();
 
-    var cBuffer = gl.createBuffer();
-    gl.bindBuffer( gl.ARRAY_BUFFER, cBuffer );
-    gl.bufferData( gl.ARRAY_BUFFER, flatten(colors), gl.STATIC_DRAW );
+    var nBuffer = gl.createBuffer();
+    gl.bindBuffer( gl.ARRAY_BUFFER, nBuffer );
+    gl.bufferData( gl.ARRAY_BUFFER, flatten(normalsArray), gl.STATIC_DRAW );
 
-    var vColor = gl.getAttribLocation( program, "vColor" );
-    gl.vertexAttribPointer( vColor, 4, gl.FLOAT, false, 0, 0 );
-    gl.enableVertexAttribArray( vColor );
+    var vNormal = gl.getAttribLocation( program, "vNormal" );
+    gl.vertexAttribPointer( vNormal, 3, gl.FLOAT, false, 0, 0 );
+    gl.enableVertexAttribArray( vNormal );
 
     var vBuffer = gl.createBuffer();
     gl.bindBuffer( gl.ARRAY_BUFFER, vBuffer );
-    gl.bufferData( gl.ARRAY_BUFFER, flatten(points), gl.STATIC_DRAW );
+    gl.bufferData( gl.ARRAY_BUFFER, flatten(pointsArray), gl.STATIC_DRAW );
     
 
     var vPosition = gl.getAttribLocation( program, "vPosition" );
     gl.vertexAttribPointer( vPosition, 4, gl.FLOAT, false, 0, 0 );
     gl.enableVertexAttribArray( vPosition );
 
-    modelViewMatrixLoc = gl.getUniformLocation(program, "modelViewMatrix"); 
-    projectionMatrixLoc = gl.getUniformLocation(program, "projectionMatrix"); 
+    thetaLoc = gl.getUniformLocation(program,"theta");
+
+    // viewerPos = vec3(0.0,0.0,-20.0);
+
+    projection = ortho(-1,1,-1,1,-100,100)
+
+
+
+
+    
     
     //sliders for viewing parameters
     document.getElementById("zFarSlider").onchange = function(event){
