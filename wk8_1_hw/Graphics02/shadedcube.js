@@ -136,8 +136,20 @@ window.onload = function init()
     document.getElementById("ButtonZ").onclick = function(){axis = zAxis; render();};
     document.getElementById("ButtonT").onclick = function(){flag = !flag; render();};
 
-    
-    
+    gl.uniform4fv(gl.getUniformLocation(program,"ambientProduct"),
+        flatten(ambientProduct));
+    gl.uniform4fv(gl.getUniformLocation(program,"diffuseProduct"),
+        flatten(diffuseProduct));
+    gl.uniform4fv(gl.getUniformLocation(program,"specularProduct"),
+        flatten(specularProduct));
+    gl.uniform4fv(gl.getUniformLocation(program,"lightPosition"),
+        flatten(lightPosition));
+
+    gl.uniform1f(gl.getUniformLocation(program,
+        "shininess"),materialShininess);
+
+    gl.uniformMatrix4fv(gl.getUniformLocation(program,"projectionMatrix"),
+        false,flatten(projection));
         
     render();
 }
