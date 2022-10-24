@@ -84,15 +84,11 @@ function divideTriangle(a,b,c, count)
 }
 
 
-function colorCube()
-{
-    quad( 1, 0, 3, 2 ); // blue
-    quad( 2, 3, 7, 6 ); // yellow
-    quad( 3, 0, 4, 7 ); // green
-    quad( 6, 5, 1, 2 ); // cyan
-    quad( 4, 5, 6, 7 ); // red       
-    quad( 5, 4, 0, 1 ); // magenta
-
+function tetrahedron(a,b,c,d,n){
+    divideTriangle(a,b,c,n);
+    divideTriangle(d,c,b,n);
+    divideTriangle(a,d,b,n);
+    divideTriangle(a,c,d,n);
 }
 
 
