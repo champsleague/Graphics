@@ -2,17 +2,27 @@
 var canvas;
 var gl;
 
-var NumVertices  = 84;
+var numVertices  = 36;
 
-var points = [];
-var colors = [];
+var pointsArray = [];
+var normalsArray = [];
 
-var near = 0.3;
-var far = 3.0;
-var radius = 4.0;
-var theta = 0.0;
-var phi = 0.0;
-var dr = 5.0 * Math.PI/180.0;
+
+var vertices = [
+    vec4( -0.5, -0.5,  0.5, 1.0 ), // 0
+    vec4( -0.5,  0.5,  0.5, 1.0 ), // 1
+    vec4(  0.5,  0.5,  0.5, 1.0 ), // 2
+    vec4(  0.5, -0.5,  0.5, 1.0 ), // 3
+    vec4( -0.5, -0.5, -0.5, 1.0 ), // 4 
+    vec4( -0.5,  0.5, -0.5, 1.0 ), // 5
+    vec4(  0.5,  0.5, -0.5, 1.0 ), // 6
+    vec4(  0.5, -0.5, -0.5, 1.0 ),  // 7
+]
+
+var lightPosition = vec4(1.0,1.0,1.0,0.0);
+var lightAmbient = vec4(0.2,0.2,0.2,1.0);
+var lightDiffuse = vec4(1.0,1.0,1.0,1.0);
+var lightSpecular = vec4(1.0,1.0,1.0,1.0);
 
 var fovy = 45.0;
 var aspect = 1.0;
