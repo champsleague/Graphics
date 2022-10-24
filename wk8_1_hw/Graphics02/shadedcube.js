@@ -169,9 +169,9 @@ var render=function()
     modelView = mult(modelView,rotate(theta[zAxis],[0,0,1]));
 
 
-    gl.uniformMatrix4fv( modelViewMatrixLoc, false, flatten(modelViewMatrix) );
-    gl.uniformMatrix4fv( projectionMatrixLoc, false, flatten(projectionMatrix) );
-    gl.drawArrays( gl.TRIANGLES, 0, NumVertices );
-    requestAnimFrame(render);
+    gl.uniformMatrix4fv(gl.getUniformLocation(program,
+        "modelViewMatrix"), false,flatten(modelView));
+
+    gl.drawArrays(gl.TRIANGLES,0,numVertices)
 }
 
