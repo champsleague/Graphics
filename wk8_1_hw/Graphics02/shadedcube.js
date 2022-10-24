@@ -126,44 +126,17 @@ window.onload = function init()
 
 
 
+    var ambientProduct = mult(lightAmbient,materialAmbient);
+    var diffuseProduct = mult(lightDiffuse,materialDiffuse);
+    var specularProduct = mult(lightSpecular,materialSpecular);
 
     
+    document.getElementById("ButtonX").onclick = function(){axis = xAxis; render();};
+    document.getElementById("ButtonY").onclick = function(){axis = yAxis; render();};
+    document.getElementById("ButtonZ").onclick = function(){axis = zAxis; render();};
+    document.getElementById("ButtonT").onclick = function(){flag = !flag; render();};
+
     
-    //sliders for viewing parameters
-    document.getElementById("zFarSlider").onchange = function(event){
-        far = event.target.value;
-    render();
-    };
-
-    document.getElementById("zNearSlider").onchange = function(event){
-        near = event.target.value;
-    render();
-    };
-
-    document.getElementById("radiusSlider").onchange = function(event){
-        radius = event.target.value;
-    render();
-    };
-
-    document.getElementById("thetaSlider").onchange = function(event){
-        theta = event.target.value*Math.PI/180.0;
-    render();
-    };
-
-    document.getElementById("phiSlider").onchange = function(event){
-        phi = event.target.value*Math.PI/180.0;
-    render();
-    };
-
-    document.getElementById("aspectSlider").onchange = function(event){
-        aspect = event.target.value;    
-    render();
-    };
-
-    document.getElementById("fovSlider").onchange = function(event){
-        fovy = event.target.value;
-    render();
-    };
     
         
     render();
