@@ -4,11 +4,6 @@
 
 201835475 유경준
 
-<button id="ButtonX">Rotate X</button>
-<button id="ButtonY">Rotate Y</button>
-<button id="ButtonZ">Rotate Z</button>
-<button id="ButtonT">Toggle Rotation</button>
-
 <script id="vertex-shader" type="x-shader/x-vertex">
 
 attribute vec4 vPosition;
@@ -26,29 +21,27 @@ void main()
 
    vec3 pos = (modelViewMatrix * vPosition).xyz;
 
-   <!-- fixed light position -->
-   vec3 light = lightPosition.xyz;
+   vec3 L;
 
-   vec3 L = normalize(light-pos);
-   vec3 E = normalize(-pos);
+   if(lightPosition.w == 0.0) L = normalize((modelViewMatrix*lightPosition).xyz);
+   else L = normalize ((modelViewMatrix*lightPosition).xyz-pos);
+
+   vec3 E = -normalize(pos);
    vec3 H = normalize(L+E);
-   vec4 NN = vec4(vNormal,0);
+   vec3 N = normalize((modelViewMatrix*vNormal).xyz);
 
-   <!-- transform vertex normal into eye coordinates -->
-   vec3 N = normalize((modelViewMatrix*NN).xyz);
+   vec4 ambient = ambientProduct;
 
-   <!-- compute terms in the blinn-phong illumination equation -->
-   float Cd = max(dot(L,N),0.0);
-   vec4 diffuse = Cd*diffuseProduct;
+   
+   float Kd = max(dot(L,N),0.0);
+   vec4 diffuse = Kd*diffuseProduct;
 
-   float Cs = pow(max(dot(N,H),0.0),shininess);
-   vec4 specular = Cs*specularProduct;
+   float Ks = pow(max(dot(N,H),0.0),shininess);
+   vec4 specular = Ks*specularProduct;
 
    if(dot(L,N)<0.0) {
     specular = vec4(0.0,0.0,0.0,1.0);
    }
-
-   vec4 ambient = ambientProduct;
 
    gl_Position = projectionMatrix * modelViewMatrix*vPosition;
    fColor = ambient + diffuse + specular;
@@ -69,10 +62,24 @@ main()
 }
 </script>
 
+<p></p>
+<button id="Button0">Increase R</button>
+<button id="Button1">Decrease R</button>
+
+<p></p>
+<button id="Button2">Increase phi</button>
+<button id="Button3">Decrease phi</button>
+
+<p></p>
+<button id="Button4">Increase Subdivisions</button>
+<button id="Button5">Decrease Subdivisions</button>
+
+<p></p>
+
 <script type="text/javascript" src="../Common/webgl-utils.js"></script>
 <script type="text/javascript" src="../Common/initShaders.js"></script>
 <script type="text/javascript" src="../Common/MV.js"></script>
-<script type="text/javascript" src="shadedcube.js"></script>
+<script type="text/javascript" src="spherevertex.js"></script>
 <body>
   
 
