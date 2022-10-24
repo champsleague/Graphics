@@ -2,24 +2,33 @@
 var canvas;
 var gl;
 
-var numVertices  = 36;
+var numTimesToSubdivide = 4;
+
+var index=0;
 
 var pointsArray = [];
 var normalsArray = [];
 
+var near = -10;
+var far = 10;
+var radius = 1.5;
+var theta = 0.0;
+var phi = 0.0;
+var dr = 5.0*Math.PI/180.0;
 
-var vertices = [
-    vec4( -0.5, -0.5,  0.5, 1.0 ), // 0
-    vec4( -0.5,  0.5,  0.5, 1.0 ), // 1
-    vec4(  0.5,  0.5,  0.5, 1.0 ), // 2
-    vec4(  0.5, -0.5,  0.5, 1.0 ), // 3
-    vec4( -0.5, -0.5, -0.5, 1.0 ), // 4 
-    vec4( -0.5,  0.5, -0.5, 1.0 ), // 5
-    vec4(  0.5,  0.5, -0.5, 1.0 ), // 6
-    vec4(  0.5, -0.5, -0.5, 1.0 ),  // 7
-]
+var left=-3.0;
+var right= 3.0;
+var ytop = 3.0;
+var bottom=-3.0;
 
-var lightPosition = vec4(1.0,1.0,1.0,0.0);
+var va = vec4(0.0,0.0,-1.0,1);
+var vb = vec4(0.0,0.942809,0.333333,1);
+var vc = vec4(-0.816497,-0.471405,0.333333,1);
+var vd = vec4(0.816497,-0.471405,0.333333,1);
+
+
+
+var lightPosition = vec4(10.0,10.0,10.0,0.0);
 var lightAmbient = vec4(0.2,0.2,0.2,1.0);
 var lightDiffuse = vec4(1.0,1.0,1.0,1.0);
 var lightSpecular = vec4(1.0,1.0,1.0,1.0);
@@ -27,45 +36,39 @@ var lightSpecular = vec4(1.0,1.0,1.0,1.0);
 var materialAmbient = vec4(1.0,0.0,1.0,1.0);
 var materialDiffuse = vec4(1.0,0.8,0.0,1.0);
 var materialSpecular = vec4(1.0,0.8,0.0,1.0);
-var materialShininess = 100.0;
+var materialShininess = 2.0;
 
 
 var ctm;
 var ambientColor, diffuseColor, specularColor;
-var modelView, projection;
-var viewerPos;
-var program
 
-var xAxis = 0;
-var yAxis = 1;
-var zAxis = 2;
-var aAxis = 0;
-var theta = [0,0,0];
+var modelViewMatrix, projectionMatrix;
+var modelViewMatrixLoc, projectionMatrixLoc;
 
-var thetaLoc;
+var eye;
+var at = vec3(0.0,0.0,0.0);
+var up = vec3(0.0,1.0,0.0);
 
-var flag = true;
+function triangle(a,b,c){
+    pointsArray.push(a);
+    pointsArray.push(b);
+    pointsArray.push(c);
+
+    normalsArray.push(a[0],a[1],a[2],0.0);
+    normalsArray.push(b[0],b[1],b[2],0.0);
+    normalsArray.push(c[0],c[1],c[2],0.0);
+
+    index += 3;
+}
 
 
-function quad(a,b,c,d)
+function divideTriangle(a,b,c, count)
 {
-    var t1 = subtract(vertices[b],vertices[a]);
-    var t2 = subtract(vertices[c],vertices[a]);
-    var normal = cross(t1,t2);
-    var normal = vec3(normal);
-
-    pointsArray.push(vertices[a]);
-    normalsArray.push(normal);
-    pointsArray.push(vertices[b]);
-    normalsArray.push(normal);
-    pointsArray.push(vertices[c]);
-    normalsArray.push(normal);
-    pointsArray.push(vertices[a]);
-    normalsArray.push(normal);
-    pointsArray.push(vertices[c]);
-    normalsArray.push(normal);
-    pointsArray.push(vertices[d]);
-    normalsArray.push(normal);
+   if(count>0){
+    var ab = mix(a,b,0.5);
+    var ac = mix(a,c,0.5);
+    var bc = mix(b,c,0.5);
+   }
 }
 
 
