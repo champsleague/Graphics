@@ -105,7 +105,7 @@ window.onload = function init()
 
     gl.enable(gl.DEPTH_TEST);
     gl.enable(gl.CULL_FACE);
-    gl.cullface(gl.FRONT);
+    gl.cullFace(gl.FRONT);
 
     //  Load shaders and initialize attribute buffers
     var program = initShaders( gl, "vertex-shader", "fragment-shader" );
@@ -169,9 +169,6 @@ window.onload = function init()
         flatten(lightPosition));
     gl.uniform1f(gl.getUniformLocation(program,
         "shininess"),materialShininess);
-
-    gl.uniformMatrix4fv(gl.getUniformLocation(program,"projectionMatrix"),
-        false,flatten(projection));
         
     render();
 }
