@@ -161,10 +161,13 @@ var render=function()
 {
     gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     
-    eye=vec3(radius*Math.sin(theta)*Math.cos(phi), 
-    radius*Math.sin(theta)*Math.sin(phi),radius*Math.cos(theta)); // eye point
-    modelViewMatrix = lookAt(eye, at , up); 
-    projectionMatrix = perspective(fovy,aspect,near,far);
+    if(flag) theta[axis] += 2.0;
+
+    modelView = mat4();
+    modelView = mult(modelView,rotate(theta[xAxis],[1,0,0]));
+    modelView = mult(modelView,rotate(theta[yAxis],[0,1,0]));
+    modelView = mult(modelView,rotate(theta[zAxis],[0,0,1]));
+
 
     gl.uniformMatrix4fv( modelViewMatrixLoc, false, flatten(modelViewMatrix) );
     gl.uniformMatrix4fv( projectionMatrixLoc, false, flatten(projectionMatrix) );
