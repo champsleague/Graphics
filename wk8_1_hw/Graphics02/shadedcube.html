@@ -44,8 +44,15 @@ void main()
    float Cs = pow(max(dot(N,H),0.0),shininess);
    vec4 specular = Cs*specularProduct;
 
-    gl_Position = sxyz*projectionMatrix * modelViewMatrix*vPosition;
-    fColor = vColor;
+   if(dot(L,N)<0.0) {
+    specular = vec4(0.0,0.0,0.0,1.0);
+   }
+
+   vec4 ambient = ambientProduct;
+
+   gl_Position = projectionMatrix * modelViewMatrix*vPosition;
+   fColor = ambient + diffuse + specular;
+   fColor.a = 1.0;
 } 
 </script>
 
