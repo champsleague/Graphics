@@ -138,15 +138,26 @@ window.onload = function init()
     modelViewMatrixLoc = gl.getUniformLocation(program,"modelViewMatrix");
     projectionMatrixLoc = gl.getUniformLocation(program,"projectionMatrix");
 
-
-
-
-
     
-    document.getElementById("ButtonX").onclick = function(){axis = xAxis; render();};
-    document.getElementById("ButtonY").onclick = function(){axis = yAxis; render();};
-    document.getElementById("ButtonZ").onclick = function(){axis = zAxis; render();};
-    document.getElementById("ButtonT").onclick = function(){flag = !flag; render();};
+    document.getElementById("Button0").onclick = function(){radius *= 2.0};
+    document.getElementById("Button1").onclick = function(){radius *= 0.5};
+    document.getElementById("Button2").onclick = function(){phi += dr;};
+    document.getElementById("Button3").onclick = function(){phi -= dr};
+    document.getElementById("Button4").onclick = function(){
+        numTimesToSubdivide++;
+        index = 0;
+        pointsArray = [];
+        normalsArray = [];
+        init();
+    };
+    document.getElementById("Button5").onclick = function(){
+        if(numTimesToSubdivide) numTimesToSubdivide--;
+        index = 0;
+        pointsArray = [];
+        normalsArray = [];
+        init();
+    };
+
 
     gl.uniform4fv(gl.getUniformLocation(program,"ambientProduct"),
         flatten(ambientProduct));
@@ -156,7 +167,6 @@ window.onload = function init()
         flatten(specularProduct));
     gl.uniform4fv(gl.getUniformLocation(program,"lightPosition"),
         flatten(lightPosition));
-
     gl.uniform1f(gl.getUniformLocation(program,
         "shininess"),materialShininess);
 
@@ -169,7 +179,7 @@ window.onload = function init()
 
 
 
-var render=function()
+function render()
 {
     gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     
