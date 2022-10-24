@@ -103,14 +103,20 @@ window.onload = function init()
     gl.viewport( 0, 0, canvas.width, canvas.height );
     gl.clearColor( 1.0, 1.0, 1.0, 1.0 );
 
-    // gl.enable(gl.DEPTH_TEST);
-    // gl.enable(gl.CULL_FACE);
+    gl.enable(gl.DEPTH_TEST);
+    gl.enable(gl.CULL_FACE);
+    gl.cullface(gl.FRONT);
 
     //  Load shaders and initialize attribute buffers
     var program = initShaders( gl, "vertex-shader", "fragment-shader" );
     gl.useProgram( program );
+
+    var ambientProduct = mult(lightAmbient,materialAmbient);
+    var diffuseProduct = mult(lightDiffuse,materialDiffuse);
+    var specularProduct = mult(lightSpecular,materialSpecular);
+
+    tetrahedron(va,vb,vc,vd,numTimesToSubdivide);
     
-    colorCube();
 
     var nBuffer = gl.createBuffer();
     gl.bindBuffer( gl.ARRAY_BUFFER, nBuffer );
@@ -129,17 +135,12 @@ window.onload = function init()
     gl.vertexAttribPointer( vPosition, 4, gl.FLOAT, false, 0, 0 );
     gl.enableVertexAttribArray( vPosition );
 
-    thetaLoc = gl.getUniformLocation(program,"theta");
-
-    // viewerPos = vec3(0.0,0.0,-20.0);
-
-    projection = ortho(-1,1,-1,1,-100,100)
+    modelViewMatrixLoc = gl.getUniformLocation(program,"modelViewMatrix");
+    projectionMatrixLoc = gl.getUniformLocation(program,"projectionMatrix");
 
 
 
-    var ambientProduct = mult(lightAmbient,materialAmbient);
-    var diffuseProduct = mult(lightDiffuse,materialDiffuse);
-    var specularProduct = mult(lightSpecular,materialSpecular);
+
 
     
     document.getElementById("ButtonX").onclick = function(){axis = xAxis; render();};
