@@ -42,64 +42,32 @@ var zAxis = 2;
 var aAxis = 0;
 var theta = [0,0,0];
 
+var thetaLoc;
 
-// quad uses first index to set color for face
+var flag = true;
+
+
 function quad(a,b,c,d)
 {
-    var vertices = [
-        vec4( -0.5, -0.5,  0.5, 1.0 ), // 0
-        vec4( -0.5,  0.5,  0.5, 1.0 ), // 1
-        vec4(  0.5,  0.5,  0.5, 1.0 ), // 2
-        vec4(  0.5, -0.5,  0.5, 1.0 ), // 3
-        vec4( -0.5, -0.5, -0.5, 1.0 ), // 4 
-        vec4( -0.5,  0.5, -0.5, 1.0 ), // 5
-        vec4(  0.5,  0.5, -0.5, 1.0 ), // 6
-        vec4(  0.5, -0.5, -0.5, 1.0 ),  // 7
-    
-        // bottom
-        vec4( -0.5, -0.5-1.0,  0.5, 1.0 ), // 0
-        vec4( -0.5,  0.5-1.0,  0.5, 1.0 ), // 1
-        vec4(  0.5,  0.5-1.0,  0.5, 1.0 ), // 2
-        vec4(  0.5, -0.5-1.0,  0.5, 1.0 ), // 3
-        vec4( -0.5, -0.5-1.0, -0.5, 1.0 ), // 4 
-        vec4( -0.5,  0.5-1.0, -0.5, 1.0 ), // 5
-        vec4(  0.5,  0.5-1.0, -0.5, 1.0 ), // 6
-        vec4(  0.5, -0.5-1.0, -0.5, 1.0 ),  // 7
-    
-        // right
-        vec4( -0.5+1.0, -0.5,  0.5, 1.0 ), // 0
-        vec4( -0.5+1.0,  0.5,  0.5, 1.0 ), // 1
-        vec4(  0.5+1.0,  0.5,  0.5, 1.0 ), // 2
-        vec4(  0.5+1.0, -0.5,  0.5, 1.0 ), // 3
-        vec4( -0.5+1.0, -0.5, -0.5, 1.0 ), // 4 
-        vec4( -0.5+1.0,  0.5, -0.5, 1.0 ), // 5
-        vec4(  0.5+1.0,  0.5, -0.5, 1.0 ), // 6
-        vec4(  0.5+1.0, -0.5, -0.5, 1.0 )  // 7
-    ]; 
-    
-    var vertexColors = [
-        [ 0.0, 0.0, 0.0, 1.0 ],  // black
-        [ 1.0, 0.0, 0.0, 1.0 ],  // red
-        [ 1.0, 1.0, 0.0, 1.0 ],  // yellow
-        [ 0.0, 1.0, 0.0, 1.0 ],  // green
-        [ 0.0, 0.0, 1.0, 1.0 ],  // blue
-        [ 1.0, 0.0, 1.0, 1.0 ],  // magenta
-        [ 0.0, 1.0, 1.0, 1.0 ],  // cyan
-        [ 1.0, 1.0, 1.0, 1.0 ]   // white
-    ];
+    var t1 = subtract(vertices[b],vertices[a]);
+    var t2 = subtract(vertices[c],vertices[a]);
+    var normal = cross(t1,t2);
+    var normal = vec3(normal);
 
-
-var indices = [a,b,c,a,c,d]; //1 0 3, 1 3 2 // 4 5 6, 4 6 7
-
-console.log(indices)
-    for (var i = 0; i<indices.length; ++i){
-        points.push(vertices[indices[i]]);
-        // colors.push(vertexColors[indices[i]]);
-
-        // for solid colored faces use
-        colors.push(vertexColors[a % 8]);
-    }
+    pointsArray.push(vertices[a]);
+    normalsArray.push(normal);
+    pointsArray.push(vertices[b]);
+    normalsArray.push(normal);
+    pointsArray.push(vertices[c]);
+    normalsArray.push(normal);
+    pointsArray.push(vertices[a]);
+    normalsArray.push(normal);
+    pointsArray.push(vertices[c]);
+    normalsArray.push(normal);
+    pointsArray.push(vertices[d]);
+    normalsArray.push(normal);
 }
+
 
 
 
