@@ -30,15 +30,17 @@ var materialSpecular = vec4(1.0,0.8,0.0,1.0);
 var materialShininess = 100.0;
 
 
-var fovy = 45.0;
-var aspect = 1.0;
+var ctm;
+var ambientColor, diffuseColor, specularColor;
+var modelView, projection;
+var viewerPos;
+var program
 
-var modelViewMatrix, projectionMatrix;
-var modelViewMatrixLoc, projectionMatrixLoc;
-var eye;
-
-const at = vec3(0.0,0.0,0.0); //at point
-const up = vec3(0.0,1.0,0.0); //up direction
+var xAxis = 0;
+var yAxis = 1;
+var zAxis = 2;
+var aAxis = 0;
+var theta = [0,0,0];
 
 
 // quad uses first index to set color for face
