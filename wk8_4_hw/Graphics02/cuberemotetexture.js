@@ -181,22 +181,17 @@ window.onload = function init()
 
 
 
-function render()
+var render = function()
 {
     gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     
-    eye=vec3(radius*Math.cos(theta)*Math.sin(phi), 
-    radius*Math.sin(theta),radius*Math.cos(theta)*Math.cos(phi)); // eye point
+    var ctm = mat4();
+    ctm = mult(ctm,rotate(theta[zAxis],0,0,1)); //rotateZ
+    ctm = mult(ctm,rotate(theta[yAxis],0,1,0)); //rotateY
+    ctm = mult(ctm,rotate(theta[xAxis],1,0,0)); //rotateX
 
-    modelViewMatrix = lookAt(eye,at,up);
-    projectionMatrix = ortho(left,right,bottom,ytop,near,far);
-
-    gl.uniformMatrix4fv(modelViewMatrixLoc, false,flatten(modelViewMatrix));
-    gl.uniformMatrix4fv(projectionMatrixLoc, false,flatten(projectionMatrix));
-
-    for(var i = 0; i<index; i+=3)
-    gl.drawArrays(gl.TRIANGLES,i,3);
-
-    window.requestAnimFrame(render)
+    gl.uniformMatrix4fv(modelViewMatrixLoc,false,flatten(ctm));
+    gl.drawArrays(gl.TRIANGLES,0,numVertices);
+    requestAnimFrame(render)
 }
 
