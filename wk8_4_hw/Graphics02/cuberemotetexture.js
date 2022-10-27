@@ -92,6 +92,16 @@ function quad(a,b,c,d){
     
 }
 
+function colorCube()
+{
+    quad( 1, 0, 3, 2 );
+    quad( 2, 3, 7, 6 );
+    quad( 3, 0, 4, 7 );
+    quad( 6, 5, 1, 2 );
+    quad( 4, 5, 6, 7 );
+    quad( 5, 4, 0, 1 );
+}
+
 
 
 window.onload = function init()
@@ -112,29 +122,34 @@ window.onload = function init()
     var program = initShaders( gl, "vertex-shader", "fragment-shader" );
     gl.useProgram( program );
 
-    var ambientProduct = mult(lightAmbient,materialAmbient);
-    var diffuseProduct = mult(lightDiffuse,materialDiffuse);
-    var specularProduct = mult(lightSpecular,materialSpecular);
+    colorCube();
 
-    tetrahedron(va,vb,vc,vd,numTimesToSubdivide);
-    
+    var cBuffer = gl.createBuffer();
+    gl.bindBuffer( gl.ARRAY_BUFFER, cBuffer );
+    gl.bufferData( gl.ARRAY_BUFFER, flatten(colorsArray), gl.STATIC_DRAW );
 
-    var nBuffer = gl.createBuffer();
-    gl.bindBuffer( gl.ARRAY_BUFFER, nBuffer );
-    gl.bufferData( gl.ARRAY_BUFFER, flatten(normalsArray), gl.STATIC_DRAW );
-
-    var vNormal = gl.getAttribLocation( program, "vNormal" );
-    gl.vertexAttribPointer( vNormal, 3, gl.FLOAT, false, 0, 0 );
-    gl.enableVertexAttribArray( vNormal );
+    var vColor = gl.getAttribLocation( program, "vColor" );
+    gl.vertexAttribPointer( vColor, 4, gl.FLOAT, false, 0, 0 );
+    gl.enableVertexAttribArray( vColor );
 
     var vBuffer = gl.createBuffer();
     gl.bindBuffer( gl.ARRAY_BUFFER, vBuffer );
     gl.bufferData( gl.ARRAY_BUFFER, flatten(pointsArray), gl.STATIC_DRAW );
-    
 
     var vPosition = gl.getAttribLocation( program, "vPosition" );
     gl.vertexAttribPointer( vPosition, 4, gl.FLOAT, false, 0, 0 );
     gl.enableVertexAttribArray( vPosition );
+
+    var tBuffer = gl.createBuffer();
+    gl.bindBuffer( gl.ARRAY_BUFFER, tBuffer );
+    gl.bufferData( gl.ARRAY_BUFFER, flatten(texCoordsArray), gl.STATIC_DRAW );
+
+    var vTexCoord = gl.getAttribLocation( program, "vTexCoord" );
+    gl.vertexAttribPointer( vTexCoord, 2, gl.FLOAT, false, 0, 0 );
+    gl.enableVertexAttribArray( vTexCoord );
+
+    var url = "https://c1.staticflickr.com/9/8873/18598400202_3af67ef38f_q.jpg"
+
 
     modelViewMatrixLoc = gl.getUniformLocation(program,"modelViewMatrix");
     projectionMatrixLoc = gl.getUniformLocation(program,"projectionMatrix");
