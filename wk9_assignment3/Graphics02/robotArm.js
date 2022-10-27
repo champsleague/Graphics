@@ -204,6 +204,14 @@ function lowerArm()
 
 //----------------------------------------------------------------------------
 
+function lastArm()
+{
+    var s = scale4(LAST_ARM_WIDTH, LAST_ARM_HEIGHT, LOWER_ARM_WIDTH);
+    var instanceMatrix = mult( translate( 0.0, 0.5 * LAST_ARM_HEIGHT, 0.0 ), s);
+    var t = mult(modelViewMatrix, instanceMatrix);
+    gl.uniformMatrix4fv( modelViewMatrixLoc,  false, flatten(t) );
+    gl.drawArrays( gl.TRIANGLES, 0, NumVertices );
+}
 
 var render = function() {
 
@@ -219,6 +227,10 @@ var render = function() {
     modelViewMatrix  = mult(modelViewMatrix, translate(0.0, LOWER_ARM_HEIGHT, 0.0));
     modelViewMatrix  = mult(modelViewMatrix, rotate(theta[UpperArm], 0, 0, 1) );
     upperArm();
+
+    modelViewMatrix  = mult(modelViewMatrix, translate(0.0, LOWER_ARM_HEIGHT, 0.0));
+    modelViewMatrix  = mult(modelViewMatrix, rotate(theta[LastArm], 0, 0, 1) );
+    lastArm();
 
     requestAnimFrame(render);
 }
