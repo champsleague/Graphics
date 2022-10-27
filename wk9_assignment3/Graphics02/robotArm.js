@@ -159,6 +159,9 @@ window.onload = function init() {
     document.getElementById("slider3").onchange = function(event) {
          theta[2] =  event.target.value;
     };
+    document.getElementById("slider4").onchange = function(event) {
+         theta[3] =  event.target.value;
+   };
 
     modelViewMatrixLoc = gl.getUniformLocation(program, "modelViewMatrix");
 
