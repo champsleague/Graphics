@@ -65,16 +65,31 @@ function configureTexture(image){
     gl.uniformli(gl.getUniformLocation(program,"texture"),0);
 }
 
-function triangle(a,b,c){
-    pointsArray.push(a);
-    pointsArray.push(b);
-    pointsArray.push(c);
+function quad(a,b,c,d){
+    pointsArray.push(vertices[a]);
+    colorsArray.push(vertexColors[a]);
+    texCoordsArray.push(texCoord[0]);
 
-    normalsArray.push(a[0],a[1],a[2],0.0);
-    normalsArray.push(b[0],b[1],b[2],0.0);
-    normalsArray.push(c[0],c[1],c[2],0.0);
+    pointsArray.push(vertices[b]);
+    colorsArray.push(vertexColors[a]);
+    texCoordsArray.push(texCoord[1]);
 
-    index += 3;
+    pointsArray.push(vertices[c]);
+    colorsArray.push(vertexColors[a]);
+    texCoordsArray.push(texCoord[2]);
+
+    pointsArray.push(vertices[a]);
+    colorsArray.push(vertexColors[a]);
+    texCoordsArray.push(texCoord[0]);
+
+    pointsArray.push(vertices[c]);
+    colorsArray.push(vertexColors[a]);
+    texCoordsArray.push(texCoord[2]);
+
+    pointsArray.push(vertices[d]);
+    colorsArray.push(vertexColors[a]);
+    texCoordsArray.push(texCoord[3]);
+    
 }
 
 
