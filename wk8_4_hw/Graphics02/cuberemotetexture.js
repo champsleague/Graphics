@@ -2,52 +2,68 @@
 var canvas;
 var gl;
 
-var numTimesToSubdivide = 4;
+var numVertices = 36;
 
-var index=0;
+var texSize = 64;
+
+var program;
 
 var pointsArray = [];
-var normalsArray = [];
+var colorsArray = [];
+var texCoordsArray = [];
 
-var near = -10;
-var far = 10;
-var radius = 1.5;
-var theta = 0.0;
-var phi = 0.0;
-var dr = 5.0*Math.PI/180.0;
+var texture;
 
-var left=-3.0;
-var right= 3.0;
-var ytop = 3.0;
-var bottom=-3.0;
+var texCoord = [
+    vec2(0,0),
+    vec2(0,1),
+    vec2(1,1),
+    vec2(1,0)
+]
 
-var va = vec4(0.0,0.0,-1.0,1);
-var vb = vec4(0.0,0.942809,0.333333,1);
-var vc = vec4(-0.816497,-0.471405,0.333333,1);
-var vd = vec4(0.816497,-0.471405,0.333333,1);
+var vertices = [
+    vec4( -0.5, -0.5,  0.5, 1.0 ),
+    vec4( -0.5,  0.5,  0.5, 1.0 ),
+    vec4( 0.5,  0.5,  0.5, 1.0 ),
+    vec4( 0.5, -0.5,  0.5, 1.0 ),
+    vec4( -0.5, -0.5, -0.5, 1.0 ),
+    vec4( -0.5,  0.5, -0.5, 1.0 ),
+    vec4( 0.5,  0.5, -0.5, 1.0 ),
+    vec4( 0.5, -0.5, -0.5, 1.0 )
+];
 
+var vertexColors = [
+    vec4( 0.0, 0.0, 0.0, 1.0 ),
+    vec4( 1.0, 0.0, 0.0, 1.0 ),
+    vec4( 1.0, 1.0, 0.0, 1.0 ),
+    vec4( 0.0, 1.0, 0.0, 1.0 ),
+    vec4( 0.0, 0.0, 1.0, 1.0 ),
+    vec4( 1.0, 0.0, 1.0, 1.0 ),
+    vec4( 0.0, 1.0, 1.0, 1.0 ),
+    vec4( 0.0, 1.0, 1.0, 1.0 ),
+  
+];
 
+var xAxis = 0;
+var yAxis = 1;
+var zAxis = 2;
+var axis = xAxis;
+var theta =[0, 0, 0];
 
-var lightPosition = vec4(10.0,10.0,10.0,0.0);
-var lightAmbient = vec4(0.2,0.2,0.2,1.0);
-var lightDiffuse = vec4(1.0,1.0,1.0,1.0);
-var lightSpecular = vec4(1.0,1.0,1.0,1.0);
+var modelViewMatrixLoc;
 
-var materialAmbient = vec4(1.0,0.0,1.0,1.0);
-var materialDiffuse = vec4(1.0,0.8,0.0,1.0);
-var materialSpecular = vec4(1.0,0.8,0.0,1.0);
-var materialShininess = 2.0;
+function configureTexture(image){
+    texture = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D,texture);
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,true);
+    gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,image);
 
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);
 
-var ctm;
-var ambientColor, diffuseColor, specularColor;
-
-var modelViewMatrix, projectionMatrix;
-var modelViewMatrixLoc, projectionMatrixLoc;
-
-var eye;
-var at = vec3(0.0,0.0,0.0);
-var up = vec3(0.0,1.0,0.0);
+    gl.uniformli(gl.getUniformLocation(program,"texture"),0);
+}
 
 function triangle(a,b,c){
     pointsArray.push(a);
@@ -59,36 +75,6 @@ function triangle(a,b,c){
     normalsArray.push(c[0],c[1],c[2],0.0);
 
     index += 3;
-}
-
-
-function divideTriangle(a,b,c, count)
-{
-   if(count>0){
-    var ab = mix(a,b,0.5);
-    var ac = mix(a,c,0.5);
-    var bc = mix(b,c,0.5);
-
-    ab = normalize(ab,true);
-    ac = normalize(ac,true);
-    bc = normalize(bc,true);
-
-    divideTriangle(a,ab,ac,count-1);
-    divideTriangle(ab,b,bc,count-1);
-    divideTriangle(bc,c,ac,count-1);
-    divideTriangle(ab,bc,ac,count-1);
-   }
-   else{
-    triangle(a,b,c);
-   }
-}
-
-
-function tetrahedron(a,b,c,d,n){
-    divideTriangle(a,b,c,n);
-    divideTriangle(d,c,b,n);
-    divideTriangle(a,d,b,n);
-    divideTriangle(a,c,d,n);
 }
 
 
