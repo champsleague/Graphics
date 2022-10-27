@@ -150,41 +150,30 @@ window.onload = function init()
 
     var url = "https://c1.staticflickr.com/9/8873/18598400202_3af67ef38f_q.jpg"
 
+    var image = new Image()
+    image.onload = function(){
+        configureTexture(image);
+    }
+
+    image.crossOrigin = "";
+    image.src = url;
 
     modelViewMatrixLoc = gl.getUniformLocation(program,"modelViewMatrix");
-    projectionMatrixLoc = gl.getUniformLocation(program,"projectionMatrix");
-
     
-    document.getElementById("Button0").onclick = function(){radius *= 2.0};
-    document.getElementById("Button1").onclick = function(){radius *= 0.5};
-    document.getElementById("Button2").onclick = function(){phi += dr;};
-    document.getElementById("Button3").onclick = function(){phi -= dr};
-    document.getElementById("Button4").onclick = function(){
-        numTimesToSubdivide++;
-        index = 0;
-        pointsArray = [];
-        normalsArray = [];
-        init();
-    };
-    document.getElementById("Button5").onclick = function(){
-        if(numTimesToSubdivide) numTimesToSubdivide--;
-        index = 0;
-        pointsArray = [];
-        normalsArray = [];
-        init();
+    document.getElementById("ButtonX").onclick = function(){
+        axis = xAxis;
+        theta[axis] += 2.0;
     };
 
+    document.getElementById("ButtonY").onclick = function(){
+        axis = yAxis;
+        theta[axis] += 2.0;
+    };
 
-    gl.uniform4fv(gl.getUniformLocation(program,"ambientProduct"),
-        flatten(ambientProduct));
-    gl.uniform4fv(gl.getUniformLocation(program,"diffuseProduct"),
-        flatten(diffuseProduct));
-    gl.uniform4fv(gl.getUniformLocation(program,"specularProduct"),
-        flatten(specularProduct));
-    gl.uniform4fv(gl.getUniformLocation(program,"lightPosition"),
-        flatten(lightPosition));
-    gl.uniform1f(gl.getUniformLocation(program,
-        "shininess"),materialShininess);
+    document.getElementById("ButtonZ").onclick = function(){
+        axis = zAxis;
+        theta[axis] += 2.0;
+    };
         
     render();
 }
