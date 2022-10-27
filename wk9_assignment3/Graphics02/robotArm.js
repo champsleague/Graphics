@@ -51,6 +51,8 @@ var modelViewMatrix, projectionMatrix;
 var Base = 0;
 var LowerArm = 1;
 var UpperArm = 2;
+var LastArm = 3;
+
 
 
 var theta= [ 0, 0, 0];
