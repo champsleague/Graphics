@@ -54,7 +54,6 @@ var UpperArm = 2;
 var LastArm = 3;
 
 
-
 var theta= [ 0, 0, 0];
 
 var angle = 0;
