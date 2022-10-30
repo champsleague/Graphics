@@ -17,6 +17,16 @@ html {
     overflow: hidden;
 }
 
+.frame{
+    text-align:center;
+    background-color: bisque;
+    height:50px;
+  }
+
+.frame__title{
+    font-size: large
+  }
+
 * {
     touch-action: manipulation;
 }
