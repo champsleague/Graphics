@@ -126,6 +126,16 @@ window.onload = function init() {
 
     tetrahedron(va, vb, vc, vd, numTimesToSubdivide);
 
+
+
+    var nBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, nBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, flatten(normalsArray), gl.STATIC_DRAW);
+
+    var vNormal = gl.getAttribLocation( program, "vNormal");
+    gl.vertexAttribPointer(vNormal, 4, gl.FLOAT, false, 0, 0);
+    gl.enableVertexAttribArray(vNormal);
+
     var vBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, vBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, flatten(pointsArray), gl.STATIC_DRAW);
@@ -136,6 +146,7 @@ window.onload = function init() {
 
     modelViewMatrixLoc = gl.getUniformLocation( program, "modelViewMatrix" );
     projectionMatrixLoc = gl.getUniformLocation( program, "projectionMatrix" );
+    normalMatrixLoc = gl.getUniformLocation( program, "normalMatrix" );
 
     document.getElementById("Button0").onclick = function(){phi += dr;};
     document.getElementById("Button1").onclick = function(){phi -= dr;};
