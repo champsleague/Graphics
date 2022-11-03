@@ -169,6 +169,12 @@ window.onload = function init() {
         normalsArray = [];
         init();
     };
+
+    gl.uniform4fv(gl.getUniformLocation(program,"ambientProduct"),flattern(ambientProduct));
+    gl.uniform4fv(gl.getUniformLocation(program,"diffuseProduct"),flattern(diffuseProduct));
+    gl.uniform4fv(gl.getUniformLocation(program,"specularProduct"),flattern(specularProduct));
+    gl.uniform4fv(gl.getUniformLocation(program,"lightPosition"),flattern(lightPosition));
+    gl.uniform1f(gl.getUniformLocation(program,"shininess"),materialShininess);
     
     render();
 }
