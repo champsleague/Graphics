@@ -37,6 +37,16 @@ main()
 
 precision mediump float;
 
+varying vec3 N,L,E;
+varying float s,t;
+
+uniform sampler2D texture;
+
+uniform vec4 ambientProduct;
+uniform vec4 diffuseProduct;
+uniform vec4 specularProduct;
+uniform float shininess;
+
 void
 main()
 {
