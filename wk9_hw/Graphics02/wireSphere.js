@@ -196,18 +196,14 @@ function render() {
 	eye = vec3(radius*Math.cos(theta)*Math.sin(phi), radius*Math.sin(theta),
 		 radius*Math.cos(theta)*Math.cos(phi)); // eye point
 
-	console.log(eye);
-
     modelViewMatrix = lookAt(eye, at , up);
-	console.log(modelViewMatrix);
     projectionMatrix = ortho(left, right, bottom, ytop, near, far);
-	console.log(projectionMatrix);
 
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(modelViewMatrix) );
     gl.uniformMatrix4fv(projectionMatrixLoc, false, flatten(projectionMatrix) );
 
     for( var i=0; i<index; i+=3)
-        gl.drawArrays( gl.LINE_LOOP, i, 3 );
+        gl.drawArrays( gl.TRIANGLES, i, 3 );
 
     window.requestAnimFrame(render);
 }
