@@ -65,6 +65,11 @@ function triangle(a, b, c) {
      pointsArray.push(a);
      pointsArray.push(b);
      pointsArray.push(c);
+
+    normalsArray.push(a[0],a[1],a[2],0.0);
+    normalsArray.push(b[0],b[1],b[2],0.0);
+    normalsArray.push(c[0],c[1],c[2],0.0);
+
      index += 3;
 }
 
