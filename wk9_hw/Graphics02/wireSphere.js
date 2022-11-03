@@ -7,6 +7,7 @@ var numTimesToSubdivide = 4;
 
 var index = 0;
 var pointsArray = [];
+var normalsArray = [];
 
 var near = -10;
 var far = 10;
@@ -15,18 +16,33 @@ var theta  = 0.0;
 var phi    = 0.0;
 var dr = 5.0 * Math.PI/180.0;
 
-var left = -2.0;
-var right = 2.0;
-var ytop =2.0;
-var bottom = -2.0;
+var left = -3.0;
+var right = 3.0;
+var ytop =3.0;
+var bottom = -3.0;
 
 var va = vec4(0.0, 0.0, -1.0,1);
 var vb = vec4(0.0, 0.942809, 0.333333, 1);
 var vc = vec4(-0.816497, -0.471405, 0.333333, 1);
 var vd = vec4(0.816497, -0.471405, 0.333333,1);
 
+var lightPosition = vec4(10.0,10.0,10.0,0.0);
+var lightAmbient = vec4(0.2,0.2,0.2,1.0);
+var lightDiffuse = vec4(1.0,1.0,1.0,1.0);
+var lightSpecular = vec4(1.0,1.0,1.0,1.0);
+
+var materialAmbient = vec4(1.0,0.0,1.0,1.0);
+var materialAmbient = vec4(1.0,0.8,0.0,1.0);
+var materialAmbient = vec4(1.0,1.0,1.0,1.0);
+var materialShininess = 2.0;
+
+var program;
+
+var ctm;
+var ambientColor, diffuseColor, specularColor;
 var modelViewMatrix, projectionMatrix;
 var modelViewMatrixLoc, projectionMatrixLoc;
+var normalMatrix, normalMatrixLoc;
 
 var eye;
 var at = vec3(0.0, 0.0, 0.0);
