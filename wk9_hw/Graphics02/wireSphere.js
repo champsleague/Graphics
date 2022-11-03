@@ -114,6 +114,12 @@ window.onload = function init() {
     gl.enable(gl.DEPTH_TEST);
 	gl.enable(gl.CULL_FACE);
 	gl.cullFace(gl.FRONT);
+
+    var ambientProduct = mult(lightAmbient, materialAmbient);
+    var diffuseProduct = mult(lightDiffuse, materialDiffuse);
+    var specularProduct = mult(lightSpecular, materialSpecular);
+
+    tetrahedron(va,vb,vc,vd, numTimesToSubdivide);
 	
     var program = initShaders( gl, "vertex-shader", "fragment-shader" );
     gl.useProgram( program );
