@@ -51,9 +51,32 @@ void
 main()
 {
 
-    gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
+    vec4 fColor;
+
+    vec3 H = normalize(L+E);
+
+    vec4 ambient = ambientProduct;
+
+    float Cd = max(dot(L,N),0,0);
+    vec4 diffuse = Cd*diffuseProduct;
+
+    float Cs = pow(max(dot(N,H),0,0),shininess);
+    vec4 specular = Cs*specularProduct;
+
+    if(dot(L,N)<0.0) specular = vec4(0.0,0.0,0.0,1.0);
+
+    fColor = ambient + diffuse + specular;
+    fColor.a = 1.0;
+
+    vec4 textColor = texture2D(texture,vec2(s,t));
+
+    gl_FragColor = fColor * 0.5 + textColor * 0.5;
 }
 </script>
+
+<p> </p>
+<button id = "Button0">Increase R</button>
+<button id = "Button1">Decrease R</button>
 
 <p> </p>
 <button id = "Button0">Increase phi</button>
