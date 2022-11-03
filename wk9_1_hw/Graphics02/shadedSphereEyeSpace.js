@@ -2,7 +2,6 @@
 
 var canvas;
 var gl;
-var program;
 
 var numTimesToSubdivide = 3;
 
@@ -44,7 +43,8 @@ var ambientColor, diffuseColor, specularColor;
 
 var modelViewMatrix, projectionMatrix;
 var modelViewMatrixLoc, projectionMatrixLoc;
-var eyeLoc;
+
+var normalMatrix, normalMatrixLoc;
 
 var eye;
 var at = vec3(0.0, 0.0, 0.0);
@@ -52,18 +52,20 @@ var up = vec3(0.0, 1.0, 0.0);
 
 function triangle(a, b, c) {
 
-     // normals are vectors
-
-     normalsArray.push(a[0],a[1], a[2], 0.0);
-     normalsArray.push(b[0],b[1], b[2], 0.0);
-     normalsArray.push(c[0],c[1], c[2], 0.0);
 
 
      pointsArray.push(a);
      pointsArray.push(b);
      pointsArray.push(c);
 
+     // normals are vectors
+
+     normalsArray.push(a[0],a[1], a[2], 0.0);
+     normalsArray.push(b[0],b[1], b[2], 0.0);
+     normalsArray.push(c[0],c[1], c[2], 0.0);
+
      index += 3;
+
 }
 
 
@@ -111,7 +113,7 @@ window.onload = function init() {
     //
     //  Load shaders and initialize attribute buffers
     //
-    program = initShaders( gl, "vertex-shader", "fragment-shader" );
+    var program = initShaders( gl, "vertex-shader", "fragment-shader" );
     gl.useProgram( program );
 
 
@@ -140,6 +142,7 @@ window.onload = function init() {
 
     modelViewMatrixLoc = gl.getUniformLocation( program, "modelViewMatrix" );
     projectionMatrixLoc = gl.getUniformLocation( program, "projectionMatrix" );
+    normalMatrixLoc = gl.getUniformLocation( program, "normalMatrix" );
 
     document.getElementById("Button0").onclick = function(){radius *= 2.0;};
     document.getElementById("Button1").onclick = function(){radius *= 0.5;};
@@ -175,8 +178,6 @@ window.onload = function init() {
     gl.uniform1f( gl.getUniformLocation(program,
        "shininess"),materialShininess );
 
-
-
     render();
 }
 
@@ -188,15 +189,22 @@ function render() {
     eye = vec3(radius*Math.sin(theta)*Math.cos(phi),
         radius*Math.sin(theta)*Math.sin(phi), radius*Math.cos(theta));
 
-    gl.uniform3fv(gl.getUniformLocation(program,
-       "eyePosition"), flatten(eye));
-
-
     modelViewMatrix = lookAt(eye, at , up);
     projectionMatrix = ortho(left, right, bottom, ytop, near, far);
 
+    // normal matrix only really need if there is nonuniform scaling
+    // it's here for generality but since there is
+    // no scaling in this example we could just use modelView matrix in shaders
+
+    normalMatrix = [
+        vec3(modelViewMatrix[0][0], modelViewMatrix[0][1], modelViewMatrix[0][2]),
+        vec3(modelViewMatrix[1][0], modelViewMatrix[1][1], modelViewMatrix[1][2]),
+        vec3(modelViewMatrix[2][0], modelViewMatrix[2][1], modelViewMatrix[2][2])
+    ];
+
     gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(modelViewMatrix) );
     gl.uniformMatrix4fv(projectionMatrixLoc, false, flatten(projectionMatrix) );
+    gl.uniformMatrix3fv(normalMatrixLoc, false, flatten(normalMatrix) );
 
     for( var i=0; i<index; i+=3)
         gl.drawArrays( gl.TRIANGLES, i, 3 );

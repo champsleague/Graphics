@@ -3,6 +3,8 @@
 
 <script id="vertex-shader" type="x-shader/x-vertex">
 
+// assume both position and normal are in homogeneous form
+
 attribute vec4 vPosition;
 attribute vec4 vNormal;
 
@@ -14,25 +16,43 @@ uniform mat4 modelViewMatrix;
 uniform mat4 projectionMatrix;
 uniform vec4 lightPosition;
 uniform float shininess;
-uniform vec3 eyePosition;
+uniform mat3 normalMatrix;
 
 
 void
 main()
 {
-    vec3 L;
-    if(lightPosition.w == 0.0)  L = normalize( lightPosition.xyz);
-    else  L = normalize( (lightPosition - vPosition) .xyz);
 
-	
-    vec3 E = normalize( eyePosition);
-    
+    // pos is vertex position in eye coordinates
+
+    vec3 pos = (modelViewMatrix * vPosition).xyz;
+
+    // vector from vertex position to light source
+
+    vec3 L;
+
+    // check for directional light
+
+    if(lightPosition.w == 0.0) L = normalize((modelViewMatrix*lightPosition).xyz);
+    else L = normalize( (modelViewMatrix*lightPosition).xyz - pos );
+
+    // Because the eye point the is at the orgin
+    // the vector from the vertex position to the eye is
+
+    vec3 E = -normalize( pos );
+
+    // halfway vector
+
     vec3 H = normalize( L + E );
 
-    
     // Transform vertex normal into eye coordinates
-    
-    vec3 N = normalize(vNormal.xyz);
+
+    // vec3 N = normalize( normalMatrix*vNormal.xyz);
+
+    // as long as there is no nonuniform scaling
+    // we don't need the normal matrix and can use
+
+    vec3 N = normalize((modelViewMatrix*vNormal).xyz);
 
     // Compute terms in the illumination equation
     vec4 ambient = ambientProduct;
@@ -42,13 +62,13 @@ main()
 
     float Ks = pow( max(dot(N, H), 0.0), shininess );
     vec4  specular = Ks * specularProduct;
-    
+
     if( dot(L, N) < 0.0 ) {
 	specular = vec4(0.0, 0.0, 0.0, 1.0);
-    } 
+    }
 
     gl_Position = projectionMatrix * modelViewMatrix * vPosition;
-    
+
     fColor = ambient + diffuse +specular;
 
     fColor.a = 1.0;
@@ -89,7 +109,7 @@ main()
 <script type="text/javascript" src="../Common/initShaders.js"></script>
 
 <script type="text/javascript" src="../Common/MV.js"></script>
-<script type="text/javascript" src="shadedSphereObjectSpace.js"></script>
+<script type="text/javascript" src="shadedSphereEyeSpace.js"></script>
 
 <body>
 <canvas id="gl-canvas" width="512" height="512">
