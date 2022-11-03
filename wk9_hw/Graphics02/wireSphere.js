@@ -162,12 +162,14 @@ window.onload = function init() {
         normalsArray = [];
         init();
     };
-    document.getElementById("Button3").onclick = function(){
+    document.getElementById("Button5").onclick = function(){
         if(numTimesToSubdivide) numTimesToSubdivide--;
         index = 0;
         pointsArray = [];
+        normalsArray = [];
         init();
     };
+    
     render();
 }
 
