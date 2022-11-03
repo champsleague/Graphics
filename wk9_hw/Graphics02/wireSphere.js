@@ -176,6 +176,14 @@ window.onload = function init() {
     gl.uniform4fv(gl.getUniformLocation(program,"lightPosition"),flattern(lightPosition));
     gl.uniform1f(gl.getUniformLocation(program,"shininess"),materialShininess);
     
+    var image = new Image();
+    image.onload = function(){
+        configureTexture(image);
+    }
+
+    image.crossorigin = "";
+    image.src = "SA2011_black.gif"
+
     render();
 }
 
