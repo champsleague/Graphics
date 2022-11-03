@@ -76,9 +76,13 @@ function triangle(a, b, c) {
 function divideTriangle(a, b, c, count) {
     if ( count > 0 ) {
 
-        var ab = normalize(mix( a, b, 0.5), true);
-        var ac = normalize(mix( a, c, 0.5), true);
-        var bc = normalize(mix( b, c, 0.5), true);
+        var ab = mix( a, b, 0.5);
+        var ac = mix( a, c, 0.5);
+        var bc = mix( b, c, 0.5);
+
+        ab = normalize(ab,true);
+        ac = normalize(ac,true);
+        bc = normalize(bc,true);
 
         divideTriangle( a, ab, ac, count - 1 );
         divideTriangle( ab, b, bc, count - 1 );
