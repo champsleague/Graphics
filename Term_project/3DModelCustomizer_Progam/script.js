@@ -366,7 +366,8 @@ function initColor(parent, type, mtl) {
     if (o.isMesh) {
       if (o.name.includes(type)) {
         o.material = mtl;
-        o.nameID = type; // Set a new property to identify this object
+        o.nameID = type; 
+        // Set a new property to identify this object
       }
     }
   });
